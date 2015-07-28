@@ -1,0 +1,21 @@
+extends ./../layout
+
+block content
+  h1 Edit Your Gear
+  if errors
+    include ./../_errors
+  form(method='post' action='/item')
+    label(for='name') Name
+    input#name(type='text' name='item[name]' value='#{item.name}')
+    label(for='brand') Brand
+    input#brand(type='text' name='item[brand]' value='#{item.brand}')
+    label(for='description') Description
+    textarea#description(name='item[description]')= item.description
+    label(for='datePurchased') Date Purchased
+    input#datePurchased(type='text' name='item[datePurchased]' value='#{item.datePurchased}')
+    label(for='condition') Condition
+    input#condition(type='text' name='item[condition]' value='#{item.condition}')
+    label(for='categories') Categories
+    input#categories(type='text' name='item[categories]' value='#{item.categories}')
+    input(type='submit' value='Submit')
+      

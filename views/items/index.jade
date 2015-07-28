@@ -1,0 +1,21 @@
+extends ./../layout
+
+block content
+  h1 Your gear
+  table
+    thead
+      tr
+        th Name
+        th Brand
+        th Options
+    tbody
+      each item in items
+        tr
+          td= item.name
+          td= item.brand
+          td
+            a(href='/users/#{item.userId}/item/#{item._id}') Show
+            a(href='/users/#{item.userId}/item/#{item._id}/edit') Edit
+            form(action='/users/#{item.userId}/item/#{item._id}/delete' method='post')
+              input(type='submit' value='Delete')
+            

@@ -40,25 +40,46 @@ router.get('/users/:userId/edit', function(req, res, next) {
 //** CREATE**
 //***********
 router.post('/users', function(req, res, next) {
+  date = new Date();
+  date = date.toString();
+  console.log(date, date.toString());
   db.Users.create({
     username: req.body.username,
     password: req.body.password,
     email: req.body.email,
-    dateJoined: new Date().toString(),
+    dateJoined: date,
     name: req.body.name
     }).then(function (result) {
     res.redirect('/users', {user: result});
+  }, function (err) {
+    var error = new Error('something went wrong')
+    console.log(err);
+    res.render('users/new', {errors: err});
   });
 });
 
 //***********
 //** UPDATE**
 //***********
+router.post('/users/:userId', function(req, res, next) {
+  db.Users.findByIdAndUpdate(req.params.userId, {
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    name: req.body.name
+    }).then(function (result) {
+    res.redirect('/users/'+req.params.userId);
+  });
+});
 
 //***********
 //** DELETE**
 //***********
-
+router.post('/users/:userId/delete', function(req, res, next) {
+  db.Users.findByIdAndRemove(req.params.userId).then(function (result) {
+    res.redirect('/users');
+  });
+});
 
 
 

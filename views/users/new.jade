@@ -2,6 +2,8 @@ extends ./../layout
 
 block content
   h1 Sign up as a new user
+  if errors
+    include ./../_error.jade
   form(method='post' action='/users')
     label(for='username') Username
     input(type='text' name='username')
