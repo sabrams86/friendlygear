@@ -1,0 +1,10 @@
+extends ./../layout
+
+block content
+  h1 #{user.name}'s info
+  p Username
+  p= user.username
+  p Email
+  p= user.email
+  a(href='/users/#{user._id}/edit') Edit my info
+  a(href='/') Home

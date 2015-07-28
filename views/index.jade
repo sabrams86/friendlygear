@@ -1,5 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Friendly Gear
+  h2 Newest Gear
+  each item in items
+    .item
+      h4= item.name
+      p= item.description
+    
