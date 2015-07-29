@@ -5,15 +5,22 @@ block content
   if errors
     include ./../_error.jade
   form(method='post' action='/users')
-    label(for='username') Username
-    input(type='text' name='username')
-    label(for='email') Email
-    input(type='email' name='email')
-    label(for='name') Name
-    input(type='text' name='name')
-    label(for='password') Password
-    input(type='password' name='password')
-    label(for='passwordconfirm') Password Confirmation
-    input(type='password' name='passwordconfirm')
-    input(type='submit' value='Submit')
+    .row
+      label.col2(for='username') Username
+      input.col6(type='text' name='username')
+    .row  
+      label.col2(for='email') Email
+      input.col6(type='email' name='email')
+    .row  
+      label.col2(for='name') Name
+      input.col6(type='text' name='name')
+    .row  
+      label.col2(for='password') Password
+      input.col6(type='password' name='password')
+    .row  
+      label.col2(for='passwordconfirm') Password Confirmation
+      input.col6(type='password' name='passwordconfirm')
+    .row  
+      .col2
+      input(type='submit' value='Submit')
   a(href='/') Back

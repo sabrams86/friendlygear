@@ -5,17 +5,24 @@ block content
   if errors
     include ./../_error.jade
   form(method='post' action='/users/#{user_id}/items')
-    label(for='name') Name
-    input#name(type='text' name='item[name]')
-    label(for='brand') Brand
-    input#brand(type='text' name='item[brand]')
-    label(for='description') Description
-    textarea#description(name='item[description]')
-    label(for='datePurchased') Date Purchased
-    input#datePurchased(type='date' name='item[datePurchased]')
-    label(for='condition') Condition
-    input#condition(type='text' name='item[condition]')
-    label(for='categories') Categories
-    input#categories(type='text' name='item[categories]')
-    input(type='submit' value='Submit')
+    .row
+      label(for='name') Name
+      input#name(type='text' name='item[name]')
+    .row
+      label(for='brand') Brand
+      input#brand(type='text' name='item[brand]')
+    .row
+      label(for='description') Description
+      textarea#description(name='item[description]')
+    .row
+      label(for='datePurchased') Date Purchased
+      input#datePurchased(type='date' name='item[datePurchased]')
+    .row
+      label(for='condition') Condition
+      input#condition(type='text' name='item[condition]')
+    .row
+      label(for='categories') Categories
+      input#categories(type='text' name='item[categories]')
+    .row
+      input(type='submit' value='Submit')
       

@@ -5,17 +5,24 @@ block content
   if errors
     include ./../_error
   form(method='post' action='/users/#{user_id}/items/#{item._id}')
-    label(for='name') Name
-    input#name(type='text' name='item[name]' value='#{item.name}')
-    label(for='brand') Brand
-    input#brand(type='text' name='item[brand]' value='#{item.brand}')
-    label(for='description') Description
-    textarea#description(name='item[description]')= item.description
-    label(for='datePurchased') Date Purchased
-    input#datePurchased(type='date' name='item[datePurchased]' value='#{item.datePurchased}')
-    label(for='condition') Condition
-    input#condition(type='text' name='item[condition]' value='#{item.condition}')
-    label(for='categories') Categories
-    input#categories(type='text' name='item[categories]' value='#{item.categories}')
-    input(type='submit' value='Submit')
-      
+    .row
+      label(for='name') Name
+      input#name(type='text' name='item[name]' value='#{item.name}')
+    .row
+      label(for='brand') Brand
+      input#brand(type='text' name='item[brand]' value='#{item.brand}')
+    .row
+      label(for='description') Description
+      textarea#description(name='item[description]')= item.description
+    .row
+      label(for='datePurchased') Date Purchased
+      input#datePurchased(type='date' name='item[datePurchased]' value='#{item.datePurchased}')
+    .row  
+      label(for='condition') Condition
+      input#condition(type='text' name='item[condition]' value='#{item.condition}')
+    .row  
+      label(for='categories') Categories
+      input#categories(type='text' name='item[categories]' value='#{item.categories}')
+    .row
+      input(type='submit' value='Submit')
+        

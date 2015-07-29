@@ -69,7 +69,6 @@ footer {
 main {
   height: 600px;
   background-color: white;
-  background-image: url("/images/nomad.jpeg");
   background-size: cover;
   background-position: bottom; }
 
@@ -89,6 +88,14 @@ body {
 
 .left {
   float: left; }
+
+.col6 {
+  display: inline-block;
+  width: 50%; }
+
+.col2 {
+  display: inline-block;
+  width: 20%; }
 
 html {
   font-size: 1em; }
