@@ -2,6 +2,7 @@ extends ./../layout
 
 block content
   h1 Edit Your Gear
+  a(href='/users/#{user_id}/items') Back
   if errors
     include ./../_error
   form(method='post' action='/users/#{user_id}/items/#{item._id}')

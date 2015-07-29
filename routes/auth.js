@@ -7,7 +7,7 @@ router.post('/login', function (req, res, next) {
   db.Users.findOne({username: req.body.username}).then(function (user) {
     if (bcrypt.compareSync(req.body.password, user.password)){
       req.session.user = user._id;
-      res.redirect('/users');
+      res.redirect('/users/'+user._id+'/items');
     } else {
       res.redirect('/');
     }

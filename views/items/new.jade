@@ -2,6 +2,7 @@ extends ./../layout
 
 block content
   h1 New Gear
+  a(href='/users/#{user_id}/items') Back
   if errors
     include ./../_error.jade
   form(method='post' action='/users/#{user_id}/items')

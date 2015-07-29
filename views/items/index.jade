@@ -2,6 +2,9 @@ extends ./../layout
 
 block content
   h1 Your gear
+  a(href='/users/#{user_id}/items/new') Add a new item
+  a(href='/') Home
+  a(href='/logout') Logout
   table
     thead
       tr
