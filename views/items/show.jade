@@ -1,13 +1,10 @@
 extends ./../layout
 
 block content
-  //- for non logged in users
   if !user 
     a(href='/') Login to Rent this!
-  //- for logged in users
   else if user != item.userId
     a(href='/users/#{item.userId}/items/#{item._id}/contracts/new') Rent it!
-  //- for owner
   else if user === owner
     a(href='/') Pending Rentals
   else

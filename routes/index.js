@@ -5,7 +5,7 @@ var db = require('./../models');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   db.Items.find({}).then(function (items) {
-    res.render('index', { items: items, flash: req.flash('flash') });
+    res.render('index', { items: items, flash: req.flash('flash'), user: req.session.user });
   });
 });
 

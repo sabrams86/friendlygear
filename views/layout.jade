@@ -7,6 +7,18 @@ html
     header
       .container
         block head
+        if user
+          h5
+            a.right(href='/logout') Logout
+        else
+          .right
+            h5 Login
+            form(method='post' action='/login')
+              input(type='text' name='username' placeholder='username')
+              input(type='password' name='password' placeholder='password')
+              input(type='submit' value='Login')
+            h6 or 
+              a(href='/users/new') Sign Up
     main
       .container
         block content
