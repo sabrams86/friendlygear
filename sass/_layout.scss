@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 html {
-  background: grey;
+  background: $grey;
 }
 body {
   margin: 0;
@@ -10,7 +10,7 @@ body {
 }
 header {
   height: 100px;
-  background-color: rgba($grey, 0.2);
+  background-color: $grey;
 }
 footer {
   height: 60px;
@@ -18,10 +18,11 @@ footer {
 }
 main {
   min-height: 600px;
-  background-color: white;
+  background-color: $white;
   // background-image: url('/images/nomad.jpeg');
   background-size: cover;
   background-position: bottom;
+  height: 100%;
 }
 body {
   margin: 0;
@@ -33,8 +34,10 @@ body {
   width: 960px;
   height: 100%;
   padding: 1em;
+  clear:both;
 }
 main > .container {
+  background: $white;
 }
 .right{
   float: right;
@@ -49,4 +52,7 @@ main > .container {
 .col2 {
   display: inline-block;
   width: 20%;
+}
+.clear {
+  clear: both;
 }

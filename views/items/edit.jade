@@ -21,6 +21,9 @@ block content
     .row  
       label(for='condition') Condition
       input#condition(type='text' name='item[condition]' value='#{item.condition}')
+    .row
+      label(for='imageUrl') Image (url)
+      input#imageUrl(type='url' name='item[imageUrl]' value='#{item.imageUrl}')
     .row  
       label(for='categories') Categories
       input#categories(type='text' name='item[categories]' value='#{item.categories}')

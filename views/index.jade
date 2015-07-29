@@ -1,7 +1,7 @@
 extends layout
 
 block head
-    h1.left Friendly Gear
+
 block content
   .main
     if flash
@@ -12,4 +12,7 @@ block content
           h6
             a(href='/users/#{item.userId}/items/#{item._id}')= item.name
         p= item.description
+        if item.imageUrl
+          a(href='/users/#{item.userId}/items/#{item._id}')
+            img.gearthumbnail(src='#{item.imageUrl}' alt='broken image')
 block foot

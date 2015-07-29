@@ -6,22 +6,31 @@ html
   body
     header
       .container
+        h2.title.left 
+          a(href='/') Friendly Gear
         block head
-        if user
-          h5
-            a.right(href='/logout') Logout
+        if user_id
+          .usermenu.right
+            div
+              a(href='/users/#{user_id}/edit') Edit Profile
+            div
+              a(href='/users/#{user_id}/items') My Gear 
+            div  
+              a(href='/logout') Logout
         else
-          .right
-            h5 Login
+          .usermenu.right
+            | Login
             form(method='post' action='/login')
-              input(type='text' name='username' placeholder='username')
-              input(type='password' name='password' placeholder='password')
-              input(type='submit' value='Login')
-            h6 or 
-              a(href='/users/new') Sign Up
+              .row
+                input.sml(type='text' name='username' placeholder='username')
+                input.sml(type='password' name='password' placeholder='password')
+              .row
+                input.sml(type='submit' value='Login')
+                | or 
+                a(href='/users/new') Sign Up
     main
       .container
         block content
-    footer
+    footer.clear
       .container
         block foot

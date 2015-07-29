@@ -41,7 +41,7 @@ var authorizeAdmin = function (req, res, next) {
 //***********
 router.get('/users', authorizeUser, function(req, res, next) {
   db.Users.find({}).then(function (results) {
-    res.render('users/index', {users: results, flash: req.flash('flash')});
+    res.render('users/index', {users: results, flash: req.flash('flash'), user_id: req.session.user});
   });
 });
 
@@ -58,7 +58,7 @@ router.get('/users/new', function (req, res, next) {
 router.get('/users/:userId', authorizeUser, function(req, res, next) {
   db.Users.findById(req.params.userId).then(function (result) {
     if(req.session.user === result._id.toString()){
-      res.render('users/show', {user: result});
+      res.render('users/show', {user: result,  user_id: req.session.user});
     } else {
       req.flash('flash', 'You do not have access to that page');
       res.redirect('/');
@@ -71,7 +71,7 @@ router.get('/users/:userId', authorizeUser, function(req, res, next) {
 //***********
 router.get('/users/:userId/edit', authorizeUser, function(req, res, next) {
   lib(req.params.userId).then(function (result) {
-    res.render('users/edit', {user: result});
+    res.render('users/edit', {user: result, user_id: req.session.user});
   });
 });
 

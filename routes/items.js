@@ -31,7 +31,7 @@ var authorizeUser = function (req, res, next) {
 router.get('/items', getUser, function(req, res, next) {
   if(req.session.user){
     db.Items.find({userId: req.session.user}).then(function (items) {
-      res.render('items/index', {items: items, user: res.locals.user});
+      res.render('items/index', {items: items, user: res.locals.user,  user_id: req.session.user});
     });
   } else {
     req.flash('flash', 'You must be logged in to see that page');
@@ -44,7 +44,7 @@ router.get('/items', getUser, function(req, res, next) {
 //***********
 router.get('/items/new', function (req, res, next) {
   if(req.session.user){
-    res.render('items/new', {user_id: res.locals.user_id});
+    res.render('items/new', {user_id: req.session.user});
   } else {
     req.flash('flash', 'You must be logged in to list gear');
     res.redirect('/');
@@ -56,7 +56,7 @@ router.get('/items/new', function (req, res, next) {
 //***********
 router.get('/items/:itemId', function (req, res, next) {
   db.Items.findById(req.params.itemId).then(function (item) {
-    res.render('items/show', {user: req.session.user, owner: res.locals.user_id, item: item});
+    res.render('items/show', {user: req.session.user, owner: res.locals.user_id, item: item, user_id: req.session.user});
   });
 });
 
@@ -65,7 +65,7 @@ router.get('/items/:itemId', function (req, res, next) {
 //***********
 router.get('/items/:itemId/edit', authorizeUser, function (req, res, next) {
   db.Items.findById(req.params.itemId).then(function (item) {
-    res.render('items/edit', {item: item, user_id: res.locals.user_id});
+    res.render('items/edit', {item: item,  user_id: req.session.user});
   });
 });
 
@@ -82,6 +82,7 @@ router.post('/items', function (req, res, next) {
       datePurchased: itemFields.datePurchased,
       condition: itemFields.condition,
       categories: itemFields.categories,
+      imageUrl: itemFields.imageUrl,
       userId: res.locals.user_id
       }).then(function (item) {
       res.redirect('/users/'+res.locals.user_id+'/items');
@@ -103,6 +104,7 @@ router.post('/items/:itemId', authorizeUser, function (req, res, next) {
     brand: itemFields.brand,
     datePurchased: itemFields.datePurchased,
     condition: itemFields.condition,
+    imageUrl: itemFields.imageUrl,
     categories: itemFields.categories,
     }).then(function (item) {
     res.redirect('/users/'+res.locals.user_id+'/items/'+req.params.itemId);
