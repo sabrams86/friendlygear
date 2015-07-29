@@ -4,6 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cookieSession = require('cookie-session');
+var bcrypt = require('bcryptjs');
+var flash = require('connect-flash');
 
 require('dotenv').load();
 
@@ -11,8 +14,16 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var items = require('./routes/items');
 var contracts = require('./routes/contracts');
+var auth = require('./routes/auth');
 
 var app = express();
+
+app.set('trust proxy', 1) // trust first proxy
+
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.SESSION_KEY1, process.env.SESSION_KEY2, process.env.SESSION_KEY3]
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,10 +36,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
+
+
+
 
 app.use('/', routes);
+app.use('/', auth);
 app.use('/', users);
-app.use('/users/:userId', items);
+app.use('/users/:userId', function (req, res, next) {
+  res.locals.user_id = req.params.userId;
+  next();
+}, items);
 app.use('/', contracts);
 
 // catch 404 and forward to error handler

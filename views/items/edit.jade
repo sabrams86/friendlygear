@@ -3,8 +3,8 @@ extends ./../layout
 block content
   h1 Edit Your Gear
   if errors
-    include ./../_errors
-  form(method='post' action='/item')
+    include ./../_error
+  form(method='post' action='/users/#{user_id}/items/#{item._id}')
     label(for='name') Name
     input#name(type='text' name='item[name]' value='#{item.name}')
     label(for='brand') Brand

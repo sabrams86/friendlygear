@@ -2,7 +2,7 @@ extends ./../layout
 
 block content
   h1 Sign up as a new user
-  form(method='post' action='/users')
+  form(method='post' action='/users/#{user._id}')
     label(for='username') Username
     input(type='text' name='username' value='#{user.username}')
     label(for='email') Email

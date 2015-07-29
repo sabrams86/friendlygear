@@ -2,9 +2,13 @@ extends layout
 
 block content
   h1 Friendly Gear
-  h2 Newest Gear
-  each item in items
-    .item
-      h4= item.name
-      p= item.description
+  if flash
+    include _flash
+  h4 Login
+  form(method='post' action='/login')
+    input(type='text' name='username' placeholder='username')
+    input(type='password' name='password' placeholder='password')
+    input(type='submit' value='Login')
+  h4 or Sign Up
+  a(href='/users/new') Register New User
     

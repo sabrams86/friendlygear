@@ -4,7 +4,7 @@ block content
   h1 New Gear
   if errors
     include ./../_error.jade
-  form(method='post' action='/item')
+  form(method='post' action='/users/#{user_id}/items')
     label(for='name') Name
     input#name(type='text' name='item[name]')
     label(for='brand') Brand
@@ -12,7 +12,7 @@ block content
     label(for='description') Description
     textarea#description(name='item[description]')
     label(for='datePurchased') Date Purchased
-    input#datePurchased(type='text' name='item[datePurchased]')
+    input#datePurchased(type='date' name='item[datePurchased]')
     label(for='condition') Condition
     input#condition(type='text' name='item[condition]')
     label(for='categories') Categories

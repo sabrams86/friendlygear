@@ -2,14 +2,19 @@ var express = require('express');
 var router = express.Router();
 var db = require('./../models');
 
+var getUser = function (req, res, next) {
+  db.Users.findById(res.locals.user_id).then(function (user) {
+    res.locals.user = user;
+    next();
+  });
+}
+
 //***********
 //** INDEX **
 //***********
-router.get('/items', function(req, res, next) {
-  db.Users.findById(req.params.userId).then(function (user) {
-    db.Items.find({userId: user._id}).then(function (items) {
-      res.render('items/index', {items: items});
-    });
+router.get('/items', getUser, function(req, res, next) {
+  db.Items.find({userId: res.locals.user._id}).then(function (items) {
+    res.render('items/index', {items: items});
   });
 });
 
@@ -17,13 +22,14 @@ router.get('/items', function(req, res, next) {
 //** NEW   **
 //***********
 router.get('/items/new', function (req, res, next) {
-  res.render('items/new');
+  res.render('items/new', {user_id: res.locals.user_id});
 });
 
 //***********
 //** SHOW  **
 //***********
 router.get('/items/:itemId', function (req, res, next) {
+  console.log('test');
   db.Items.findById(req.params.itemId).then(function (item) {
     res.render('items/show', {item: item});
   });
@@ -34,7 +40,7 @@ router.get('/items/:itemId', function (req, res, next) {
 //***********
 router.get('/items/:itemId/edit', function (req, res, next) {
   db.Items.findById(req.params.itemId).then(function (item) {
-    res.render('items/show', {item: item});
+    res.render('items/edit', {item: item, user_id: res.locals.user_id});
   });
 });
 
@@ -44,15 +50,15 @@ router.get('/items/:itemId/edit', function (req, res, next) {
 router.post('/items', function (req, res, next) {
   var itemFields = req.body.item;
   db.Items.create({
-    name: item.name,
-    description: item.description,
-    brand: item.brand,
-    datePurchased: item.datePurchased,
-    condition: item.condition,
-    categories: item.categories,
-    userId: req.params.userId
+    name: itemFields.name,
+    description: itemFields.description,
+    brand: itemFields.brand,
+    datePurchased: itemFields.datePurchased,
+    condition: itemFields.condition,
+    categories: itemFields.categories,
+    userId: res.locals.user_id
     }).then(function (item) {
-    res.redirect('/users/'+req.params.userId+'/items');
+    res.redirect('/users/'+res.locals.user_id+'/items');
   });
 });
 
@@ -62,15 +68,14 @@ router.post('/items', function (req, res, next) {
 router.post('/items/:itemId', function (req, res, next) {
   var itemFields = req.body.item;
   db.Items.findByIdAndUpdate(req.params.itemId, {
-    name: item.name,
-    description: item.description,
-    brand: item.brand,
-    datePurchased: item.datePurchased,
-    condition: item.condition,
-    categories: item.categories,
-    userId: req.params.userId
+    name: itemFields.name,
+    description: itemFields.description,
+    brand: itemFields.brand,
+    datePurchased: itemFields.datePurchased,
+    condition: itemFields.condition,
+    categories: itemFields.categories,
     }).then(function (item) {
-    res.redirect('/users/'+req.params.userId+'/items/'+req.params.itemId);
+    res.redirect('/users/'+res.locals.user_id+'/items/'+req.params.itemId);
   });
 });
 
@@ -79,7 +84,7 @@ router.post('/items/:itemId', function (req, res, next) {
 //***********
 router.post('/items/:itemId/delete', function (req, res, next) {
   db.Items.findByIdAndRemove(req.body.itemId).then(function (result) {
-    res.redirect('/users/'+req.params.userId+'/items');
+    res.redirect('/users/'+res.locals.user_id+'/items');
   });
 });
 

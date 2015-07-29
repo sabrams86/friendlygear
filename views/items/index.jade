@@ -14,8 +14,8 @@ block content
           td= item.name
           td= item.brand
           td
-            a(href='/users/#{item.userId}/item/#{item._id}') Show
-            a(href='/users/#{item.userId}/item/#{item._id}/edit') Edit
-            form(action='/users/#{item.userId}/item/#{item._id}/delete' method='post')
+            a(href='/users/#{item.userId}/items/#{item._id}') Show
+            a(href='/users/#{item.userId}/items/#{item._id}/edit') Edit
+            form(action='/users/#{item.userId}/items/#{item._id}/delete' method='post')
               input(type='submit' value='Delete')
             
