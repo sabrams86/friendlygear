@@ -19,10 +19,26 @@ var authorizeUser = function (req, res, next) {
   }
 }
 
+var authorizeAdmin = function (req, res, next) {
+  if (req.session.user) {
+    db.Users.findById(req.params.userId).then(function (user) {
+      if(req.session.user === user._id.toString()){
+        next();
+      } else {
+        req.flash('flash', 'You do not have access to that page');
+        res.redirect('/');
+      }
+    });
+  } else {
+    req.flash('flash', 'You do not have access to that page, try logging in');
+    res.redirect('/');
+  }
+}
+
 //***********
 //** INDEX **
 //***********
-router.get('/users', function(req, res, next) {
+router.get('/users', authorizeAdmin, function(req, res, next) {
   db.Users.find({}).then(function (results) {
     res.render('users/index', {users: results, flash: req.flash('flash')});
   });
@@ -44,7 +60,7 @@ router.get('/users/:userId', authorizeUser, function(req, res, next) {
       res.render('users/show', {user: result});
     } else {
       req.flash('flash', 'You do not have access to that page');
-      res.redirect('/users');
+      res.redirect('/');
     }
   });
 });
@@ -73,7 +89,7 @@ router.post('/users', function(req, res, next) {
     name: req.body.name
     }).then(function (result) {
     req.session.user = result._id;
-    res.redirect('/users');
+    res.redirect('/users/'+result._id);
   });
 });
 
@@ -96,7 +112,7 @@ router.post('/users/:userId', authorizeUser, function(req, res, next) {
 //***********
 router.post('/users/:userId/delete', authorizeUser, function(req, res, next) {
   db.Users.findByIdAndRemove(req.params.userId).then(function (result) {
-    res.redirect('/users');
+    res.redirect('/');
   });
 });
 

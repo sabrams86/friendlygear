@@ -67,7 +67,7 @@ footer {
   background-color: #627C85; }
 
 main {
-  height: 600px;
+  min-height: 600px;
   background-color: white;
   background-size: cover;
   background-position: bottom; }

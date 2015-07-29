@@ -1,10 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var db = require('./../models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log(req.flash);
-  res.render('index', { flash: req.flash('flash') });
+  db.Items.find({}).then(function (items) {
+    res.render('index', { items: items, flash: req.flash('flash') });
+  });
 });
 
 module.exports = router;

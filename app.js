@@ -44,11 +44,17 @@ app.use(flash());
 app.use('/', routes);
 app.use('/', auth);
 app.use('/', users);
+
 app.use('/users/:userId', function (req, res, next) {
   res.locals.user_id = req.params.userId;
   next();
 }, items);
-app.use('/', contracts);
+
+app.use('/users/:userId/items/:itemId', function (req, res, next) {
+  res.locals.user_id = req.params.userId;
+  res.locals.item_id = req.params.itemId;
+  next();
+}, contracts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

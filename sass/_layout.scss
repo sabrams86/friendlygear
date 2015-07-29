@@ -17,7 +17,7 @@ footer {
   background-color: $green;
 }
 main {
-  height: 600px;
+  min-height: 600px;
   background-color: white;
   // background-image: url('/images/nomad.jpeg');
   background-size: cover;
