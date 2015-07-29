@@ -31,7 +31,7 @@ var authorizeUser = function (req, res, next) {
 router.get('/items', getUser, function(req, res, next) {
   if(req.session.user){
     db.Items.find({userId: req.session.user}).then(function (items) {
-      res.render('items/index', {items: items});
+      res.render('items/index', {items: items, user: res.locals.user});
     });
   } else {
     req.flash('flash', 'You must be logged in to see that page');

@@ -1,7 +1,9 @@
 extends ./../layout
 
 block content
-  h1 Your gear
+  h1 Welcome #{user.name}
+  img.avatar(src='#{user.avatarUrl}' alt='profile pic')
+  
   a(href='/users/#{user_id}/items/new') Add a new item
   a(href='/') Home
   a(href='/logout') Logout

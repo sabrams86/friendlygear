@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('./../models');
 var bcrypt = require('bcryptjs');
+var lib = require('./../lib/user_lib');
 
 var authorizeUser = function (req, res, next) {
   if (req.session.user) {
@@ -38,7 +39,7 @@ var authorizeAdmin = function (req, res, next) {
 //***********
 //** INDEX **
 //***********
-router.get('/users', authorizeAdmin, function(req, res, next) {
+router.get('/users', authorizeUser, function(req, res, next) {
   db.Users.find({}).then(function (results) {
     res.render('users/index', {users: results, flash: req.flash('flash')});
   });
@@ -69,7 +70,7 @@ router.get('/users/:userId', authorizeUser, function(req, res, next) {
 //** EDIT **
 //***********
 router.get('/users/:userId/edit', authorizeUser, function(req, res, next) {
-  db.Users.findById(req.params.userId).then(function (result) {
+  lib(req.params.userId).then(function (result) {
     res.render('users/edit', {user: result});
   });
 });
@@ -86,7 +87,8 @@ router.post('/users', function(req, res, next) {
     password: password,
     email: req.body.email,
     dateJoined: date,
-    name: req.body.name
+    name: req.body.name,
+    avatarUrl: req.body.avatarUrl
     }).then(function (result) {
     req.session.user = result._id;
     res.redirect('/users/'+result._id);
@@ -101,7 +103,8 @@ router.post('/users/:userId', authorizeUser, function(req, res, next) {
     username: req.body.username,
     password: req.body.password,
     email: req.body.email,
-    name: req.body.name
+    name: req.body.name,
+    avatarUrl: req.body.avatarUrl
     }).then(function (result) {
     res.redirect('/users/'+req.params.userId);
   });

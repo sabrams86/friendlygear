@@ -13,6 +13,9 @@ block content
       label(for='name') Name
       input(type='text' name='name' value='#{user.name}')
     .row  
+      label.col2(for='avatarUrl') Profile Pic (URL)
+      input#avatarUrl.col6(type='url' name='avatarUrl' value='#{user.avatarUrl}')
+    .row  
       label(for='password') Password
       input(type='password' name='password')
     .row  
