@@ -12,7 +12,7 @@ block content
     label(for='description') Description
     textarea#description(name='item[description]')= item.description
     label(for='datePurchased') Date Purchased
-    input#datePurchased(type='text' name='item[datePurchased]' value='#{item.datePurchased}')
+    input#datePurchased(type='date' name='item[datePurchased]' value='#{item.datePurchased}')
     label(for='condition') Condition
     input#condition(type='text' name='item[condition]' value='#{item.condition}')
     label(for='categories') Categories

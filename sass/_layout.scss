@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  background: grey;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+header {
+  height: 100px;
+  background-color: rgba($grey, 0.2);
+}
+footer {
+  height: 60px;
+  background-color: $green;
+}
+main {
+  height: 600px;
+  background-color: white;
+  background-image: url('/images/nomad.jpeg');
+  background-size: cover;
+  background-position: bottom;
+}
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.container{
+  margin: 0 auto;
+  width: 960px;
+  height: 100%;
+  padding: 1em;
+}
+main > .container {
+}
+.right{
+  float: right;
+}
+.left{
+  float: left;
+}

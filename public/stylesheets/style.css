@@ -1,8 +1,219 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,100,200);
+@import url(http://fonts.googleapis.com/css?family=Josefin+Sans:100,400,700);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700);
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+* {
+  box-sizing: border-box; }
+
+html {
+  background: grey; }
+
+body {
+  margin: 0;
+  padding: 0; }
+
+header {
+  height: 100px;
+  background-color: rgba(155, 158, 155, 0.2); }
+
+footer {
+  height: 60px;
+  background-color: #627C85; }
+
+main {
+  height: 600px;
+  background-color: white;
+  background-image: url("/images/nomad.jpeg");
+  background-size: cover;
+  background-position: bottom; }
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%; }
+
+.container {
+  margin: 0 auto;
+  width: 960px;
+  height: 100%;
+  padding: 1em; }
+
+.right {
+  float: right; }
+
+.left {
+  float: left; }
+
+html {
+  font-size: 1em; }
+
+body {
+  background-color: #9B9E9B;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+  line-height: 1.45;
+  color: #9B9E9B;
+  font-size: 1.2 em; }
+
+p {
+  margin-bottom: 1.3em;
+  font-size: 1.2 em; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  margin: 1.414em 0 0.5em;
+  line-height: 1.2;
+  color: #3d5a6c; }
+
+h1 {
+  margin-top: 0;
+  font-size: 3.998em; }
+
+h2 {
+  font-size: 2.827em; }
+
+h3 {
+  font-size: 1.999em; }
+
+h4 {
+  font-size: 1.414em; }
+
+h5 {
+  font-weight: 400;
+  font-size: 1.212em; }
+
+h6 {
+  font-weight: 400;
+  font-size: 1.086em; }
+
+small, .font_small {
+  font-size: 0.5em; }
 
 a {
-  color: #00B7FF;
-}
+  color: #9B9E9B;
+  font-weight: 400;
+  text-decoration: none; }
+
+a:hover {
+  text-decoration: underline; }
+
+input {
+  border: 1px solid #627C85;
+  border-radius: 5px;
+  margin: 5px;
+  background-color: #9B9E9B;
+  color: #FFF8F0;
+  outline: none;
+  font-weight: 300; }
+
+input[type='text'] {
+  height: 2em; }
+
+textarea {
+  background-color: #9B9E9B;
+  outline: none;
+  border: 1px solid #627C85;
+  box-shadow: none;
+  font-weight: 300;
+  width: 100%;
+  color: #FFF8F0; }
+
+label {
+  margin: 5px; }
+
+input:checked {
+  background-color: #9B9E9B;
+  color: #9B9E9B; }
+
+input[type='radio'] {
+  height: 2em;
+  color: #9B9E9B; }
+
+select {
+  height: 2em;
+  background-color: #9B9E9B;
+  border: 1px solid #627C85;
+  color: #FFF8F0;
+  outline: none; }
+  select option {
+    color: #FFF8F0; }
+
+select[multiple] {
+  height: 5em; }
+
+input:focus, textarea:focus, select:focus {
+  border: 1px solid #FFF8F0; }
+
+input[type='submit']:hover {
+  background-color: #FFF8F0;
+  color: #627C85;
+  border: 1px solid #627C85; }
+
+input[type='submit']:focus {
+  background-color: #fff;
+  color: #627C85;
+  border: 1px solid #627C85; }
+
+input[type='submit'] {
+  font-size: 1.2em; }
+
+.btn {
+  padding: 8px; }
+
+table {
+  width: 100%; }
+  table thead {
+    font-weight: 500; }
+    table thead th {
+      text-align: left; }
+  table tbody tr:nth-of-type(odd) {
+    background-color: rgba(61, 90, 108, 0.1); }
+  table tbody td {
+    padding: 5px; }

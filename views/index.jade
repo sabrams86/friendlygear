@@ -1,14 +1,16 @@
 extends layout
 
+block head
+    h1 Friendly Gear
 block content
-  h1 Friendly Gear
-  if flash
-    include _flash
-  h4 Login
-  form(method='post' action='/login')
-    input(type='text' name='username' placeholder='username')
-    input(type='password' name='password' placeholder='password')
-    input(type='submit' value='Login')
-  h4 or Sign Up
-  a(href='/users/new') Register New User
-    
+  .main
+    if flash
+      include _flash
+    h4 Login
+    form(method='post' action='/login')
+      input(type='text' name='username' placeholder='username')
+      input(type='password' name='password' placeholder='password')
+      input(type='submit' value='Login')
+    h4 or Sign Up
+    a(href='/users/new') Register New User
+block foot

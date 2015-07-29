@@ -1,0 +1,73 @@
+input {
+  border: 1px solid $green;
+  border-radius: 5px;
+  margin: 5px;
+  background-color: $grey;
+  color: $offwhite;
+  outline: none;
+  font-weight: 300;
+}
+input[type='text']{
+  height: 2em;
+}
+textarea {
+  background-color: $grey;
+  outline: none;
+  border: 1px solid $green;
+  box-shadow: none;
+  font-weight: 300;
+  width: 100%;
+  color: $offwhite;
+}
+label {
+  margin: 5px;
+}
+input:checked{
+  background-color: $grey;
+  color: $grey;
+}
+input[type='radio']{
+  height: 2em;
+  color: $grey;
+}
+select {
+  height: 2em;
+  background-color: $grey;
+  border: 1px solid $green;
+  color: $offwhite;
+  outline: none;
+  option{
+    color: $offwhite;
+  }
+}
+select[multiple]{
+  height: 5em;
+}
+input:focus, textarea:focus, select:focus{
+  border: 1px solid $offwhite;
+}
+input[type='submit']:hover{
+  background-color: $offwhite;
+  color: $green;
+  border: 1px solid $green
+}
+input[type='submit']:focus{
+  background-color: $white;
+  color: $green;
+  border: 1px solid $green;
+}
+input[type='submit']{
+  font-size: 1.2em;
+}
+.btn {
+  padding: 8px;
+}
+// input[type=checkbox] + label {
+//   color: #ccc;
+//   font-style: italic;
+// }
+//
+// input[type=checkbox]:checked + label {
+//   color: #f00;
+//   font-style: normal;
+// }
