@@ -7,16 +7,16 @@ block content
   form(method='post' action='/users')
     .row
       label.col2(for='username') Username
-      input.col6(type='text' name='username')
+      input.col6(type='text' name='username' value=(username ? username: ''))
     .row  
       label.col2(for='email') Email
-      input.col6(type='email' name='email')
+      input.col6(type='email' name='email' value=(email ? email: ''))
     .row  
       label.col2(for='name') Name
-      input.col6(type='text' name='name')
+      input.col6(type='text' name='name' value=(name ? name: ''))
     .row  
       label.col2(for='avatarUrl') Profile Pic (URL)
-      input#avatarUrl.col6(type='url' name='avatarUrl')
+      input#avatarUrl.col6(type='url' name='avatarUrl' value=(avatarUrl ? avatarUrl: ''))
     .row  
       label.col2(for='password') Password
       input.col6(type='password' name='password')

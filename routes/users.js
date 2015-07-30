@@ -3,6 +3,7 @@ var router = express.Router();
 var db = require('./../models');
 var bcrypt = require('bcryptjs');
 var lib = require('./../lib/user_lib');
+var Validator = require('./../lib/validator');
 
 var authorizeUser = function (req, res, next) {
   if (req.session.user) {
@@ -79,20 +80,32 @@ router.get('/users/:userId/edit', authorizeUser, function(req, res, next) {
 //** CREATE**
 //***********
 router.post('/users', function(req, res, next) {
-  date = new Date();
-  date = date.toString();
-  password = bcrypt.hashSync(req.body.password, 8);
-  db.Users.create({
-    username: req.body.username,
-    password: password,
-    email: req.body.email,
-    dateJoined: date,
-    name: req.body.name,
-    avatarUrl: req.body.avatarUrl
-    }).then(function (result) {
-    req.session.user = result._id;
-    res.redirect('/users/'+result._id);
-  });
+  var validate = new Validator;
+  validate.exists(req.body.username, 'Username cannot be blank');
+  validate.exists(req.body.email, 'Email cannot be blank');
+  validate.exists(req.body.name, 'Name cannot be blank');
+  validate.exists(req.body.password, 'Please enter a password');
+  validate.password(req.body.password, req.body.passwordconfirm, 'Passwords do not match');
+  if(validate._errors.length > 0) {
+    console.log('asdf');
+    res.render('users/new', {username: req.body.username, email: req.body.email, name: req.body.name, avatarUrl: req.body.avatarUrl, errors: validate._errors});
+  } else {
+    console.log('fdas');
+    date = new Date();
+    date = date.toString();
+    password = bcrypt.hashSync(req.body.password, 8);
+    db.Users.create({
+      username: req.body.username,
+      password: password,
+      email: req.body.email,
+      dateJoined: date,
+      name: req.body.name,
+      avatarUrl: req.body.avatarUrl
+      }).then(function (result) {
+      req.session.user = result._id;
+      res.redirect('/users/'+result._id);
+    });
+  }
 });
 
 //***********

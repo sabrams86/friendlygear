@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
   }
   db.Items.find(query).then(function (items) {
     console.log(items);
-    res.render('index', { items: items, flash: req.flash('flash'), user_id: req.session.user });
+    res.render('index', { items: items, flash: req.flash('flash')});
   });
 });
 

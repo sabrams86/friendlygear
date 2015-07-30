@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('./../models');
-
+var Validator = require('./../lib/validator');
 
 var getUser = function (req, res, next) {
   db.Users.findById(res.locals.user_id).then(function (user) {
@@ -43,15 +43,22 @@ router.get('/contracts/:contractId/edit', function (req, res, next) {
 //** CREATE**
 //***********
 router.post('/contracts', getUser, function (req, res, next) {
-  db.Contracts.create({
-    itemId: res.locals.item_id,
-    buyerId: req.session.user,
-    sellerId: res.locals.user_id,
-    startDate: req.body.endDate,
-    endDate: req.body.endDate
-  }).then(function (result) {
-    res.redirect('/users/'+res.locals.user_id+'/items/'+res.locals.item_id+'/contracts/'+result._id);
-  });
+  var validate = new Validator;
+  validate.exists(req.body.startDate, 'Please enter a start date');
+  validate.exists(req.body.endDate, 'Please enter an end date');
+  if(validate._errors.length > 0){
+    res.render('contracts/new', {startDate: req.body.startDate, endDate: req.body.endDate, errors: validate._errors})
+  } else {
+    db.Contracts.create({
+      itemId: res.locals.item_id,
+      buyerId: req.session.user,
+      sellerId: res.locals.user_id,
+      startDate: req.body.startDate,
+      endDate: req.body.endDate
+    }).then(function (result) {
+      res.redirect('/users/'+res.locals.user_id+'/items/'+res.locals.item_id+'/contracts/'+result._id);
+    });
+  }
 });
 //***********
 //** UPDATE**

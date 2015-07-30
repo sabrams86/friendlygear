@@ -40,7 +40,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
 
 
-
+app.use('/', function (req, res, next) {
+  if (req.session.user){
+    res.locals.user_id = req.session.user;
+  }
+  next();
+});
 
 app.use('/', routes);
 app.use('/', auth);

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('./../models');
+var Validator = require('./../lib/validator');
 
 var getUser = function (req, res, next) {
   db.Users.findById(res.locals.user_id).then(function (user) {
@@ -84,21 +85,32 @@ router.get('/items/:itemId/edit', authorizeUser, function (req, res, next) {
 //***********
 router.post('/items', function (req, res, next) {
   if(req.session.user){
+    var validate = new Validator;
     var itemFields = req.body.item;
     var categories = itemFields.categories.split(',');
     categories.pop();
-    db.Items.create({
-      name: itemFields.name,
-      description: itemFields.description,
-      brand: itemFields.brand,
-      datePurchased: itemFields.datePurchased,
-      condition: itemFields.condition,
-      categories: categories,
-      imageUrl: itemFields.imageUrl,
-      userId: res.locals.user_id
-      }).then(function (item) {
-      res.redirect('/users/'+res.locals.user_id+'/items');
-    });
+    validate.exists(itemFields.name, 'Please add a name for this piece of gear');
+    validate.exists(itemFields.description, 'Description cannot be blank');
+    validate.exists(itemFields.datePurchased, 'Please estimate how old the item is');
+    validate.exists(itemFields.condition, 'Condition cannot be blank');
+    if(validate._errors.length > 0){
+      db.Categories.find().then(function (categories) {
+        res.render('items/new', {item: req.body.item, errors: validate._errors, categories: categories});
+      });
+    } else {
+      db.Items.create({
+        name: itemFields.name,
+        description: itemFields.description,
+        brand: itemFields.brand,
+        datePurchased: itemFields.datePurchased,
+        condition: itemFields.condition,
+        categories: categories,
+        imageUrl: itemFields.imageUrl,
+        userId: res.locals.user_id
+        }).then(function (item) {
+        res.redirect('/users/'+res.locals.user_id+'/items');
+      });
+    }
   } else {
     req.flash('flash', 'You must be logged in to list gear');
     res.redirect('/');

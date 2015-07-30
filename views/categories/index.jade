@@ -3,6 +3,8 @@ extends ./../layout
 block head
 
 block content
+  if errors
+    include ./../_error
   form(method='post', action='/categories')
     label(for='name') New Category
     input#name(type='text' name='name')
