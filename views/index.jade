@@ -2,6 +2,8 @@ extends layout
 
 block head
 
+block left
+
 block content
   .main
     if flash
@@ -16,3 +18,5 @@ block content
           a(href='/users/#{item.userId}/items/#{item._id}')
             img.gearthumbnail(src='#{item.imageUrl}' alt='broken image')
 block foot
+block javascript
+  script(src='/javascripts/category_dom.js' type='text/javascript')

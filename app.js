@@ -15,6 +15,7 @@ var users = require('./routes/users');
 var items = require('./routes/items');
 var contracts = require('./routes/contracts');
 var auth = require('./routes/auth');
+var categories = require('./routes/categories');
 
 var app = express();
 
@@ -44,6 +45,7 @@ app.use(flash());
 app.use('/', routes);
 app.use('/', auth);
 app.use('/', users);
+app.use('/', categories);
 
 app.use('/users/:userId', function (req, res, next) {
   res.locals.user_id = req.params.userId;

@@ -34,10 +34,12 @@ body {
   width: 960px;
   height: 100%;
   padding: 1em;
-  clear:both;
 }
 main > .container {
   background: $white;
+}
+.sidemenu {
+  padding: 1em;
 }
 .right{
   float: right;

@@ -29,8 +29,11 @@ html
                 | or 
                 a(href='/users/new') Sign Up
     main
+      .sidemenu.left
+        block leftside
       .container
         block content
     footer.clear
       .container
         block foot
+    block javascript
