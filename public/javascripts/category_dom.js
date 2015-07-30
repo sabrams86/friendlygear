@@ -1,5 +1,6 @@
 var xhr = new XMLHttpRequest;
 xhr.open('get', '/categories');
+xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 xhr.addEventListener('load', function () {
   var categories = JSON.parse(xhr.response);
   var sidemenu = document.querySelector('.sidemenu');

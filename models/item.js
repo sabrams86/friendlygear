@@ -6,7 +6,7 @@ var itemSchema = new mongoose.Schema({
   datePurchased: Date,
   condition: String,
   brand: String,
-  categories: String,
+  categories: Array,
   imageUrl: String,
   userId: String
 });

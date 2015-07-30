@@ -107,6 +107,9 @@ main > .container {
 .clear {
   clear: both; }
 
+.hidden {
+  display: none; }
+
 html {
   font-size: 1em; }
 

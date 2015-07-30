@@ -44,7 +44,9 @@ router.get('/items', getUser, function(req, res, next) {
 //***********
 router.get('/items/new', function (req, res, next) {
   if(req.session.user){
-    res.render('items/new', {user_id: req.session.user});
+    db.Categories.find({}).then(function (categories) {
+      res.render('items/new', {user_id: req.session.user, categories: categories});
+    })
   } else {
     req.flash('flash', 'You must be logged in to list gear');
     res.redirect('/');
@@ -75,16 +77,19 @@ router.get('/items/:itemId/edit', authorizeUser, function (req, res, next) {
 router.post('/items', function (req, res, next) {
   if(req.session.user){
     var itemFields = req.body.item;
+    var categories = itemFields.categories.split(',');
+    categories.pop();
     db.Items.create({
       name: itemFields.name,
       description: itemFields.description,
       brand: itemFields.brand,
       datePurchased: itemFields.datePurchased,
       condition: itemFields.condition,
-      categories: itemFields.categories,
+      categories: categories,
       imageUrl: itemFields.imageUrl,
       userId: res.locals.user_id
       }).then(function (item) {
+      console.log(item);
       res.redirect('/users/'+res.locals.user_id+'/items');
     });
   } else {
@@ -115,7 +120,7 @@ router.post('/items/:itemId', authorizeUser, function (req, res, next) {
 //** DELETE**
 //***********
 router.post('/items/:itemId/delete', authorizeUser, function (req, res, next) {
-  db.Items.findByIdAndRemove(req.body.itemId).then(function (result) {
+  db.Items.findByIdAndRemove(req.params.itemId).then(function (result) {
     res.redirect('/users/'+res.locals.user_id+'/items');
   });
 });

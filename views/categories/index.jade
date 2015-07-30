@@ -1,0 +1,13 @@
+extends ./../layout
+
+block head
+
+block content
+  form(method='post', action='/categories')
+    label(for='name') New Category
+    input#name(type='text' name='name')
+    label(for='parent') Parent Category
+    input#parent(type='text' name='parent')
+    input(type='submit' value='Create')
+  each category in categories
+    p= category.name
