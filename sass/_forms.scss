@@ -65,3 +65,16 @@ input[type='submit']{
 input.sml {
   font-size: .5em;
 }
+.delete {
+  display: inline-block;
+  cursor: pointer;
+  font-weight: bold;
+}
+.category_tag {
+  color: $white;
+  background-color: $green;
+  display: inline-block;
+  margin: 3px;
+  padding: 2px;
+  border-radius: 3px;
+}

@@ -5,11 +5,12 @@ var db = require('./../models');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (req.query.category) {
-    var query = {categories: req.query.category}
+    var query = {categories: {$in: [req.query.category]}}
   } else {
     var query = {};
   }
   db.Items.find(query).then(function (items) {
+    console.log(items);
     res.render('index', { items: items, flash: req.flash('flash'), user_id: req.session.user });
   });
 });

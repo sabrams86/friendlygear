@@ -66,8 +66,16 @@ router.get('/items/:itemId', function (req, res, next) {
 //** EDIT **
 //***********
 router.get('/items/:itemId/edit', authorizeUser, function (req, res, next) {
-  db.Items.findById(req.params.itemId).then(function (item) {
-    res.render('items/edit', {item: item,  user_id: req.session.user});
+  db.Categories.find().then(function (categories) {
+    db.Items.findById(req.params.itemId).then(function (item) {
+      db.Categories.find({_id: {$in: item.categories}}).then(function (userCategories) {
+        var categorylist = '';
+        userCategories.forEach(function (e) {
+          categorylist += (e._id + ',');
+        });
+        res.render('items/edit', {item: item, categories: categories, userCategories: userCategories, catlist: categorylist, user_id: req.session.user});
+      });
+    });
   });
 });
 
@@ -89,7 +97,6 @@ router.post('/items', function (req, res, next) {
       imageUrl: itemFields.imageUrl,
       userId: res.locals.user_id
       }).then(function (item) {
-      console.log(item);
       res.redirect('/users/'+res.locals.user_id+'/items');
     });
   } else {
@@ -102,7 +109,10 @@ router.post('/items', function (req, res, next) {
 //** UPDATE**
 //***********
 router.post('/items/:itemId', authorizeUser, function (req, res, next) {
+  console.log('asdf');
   var itemFields = req.body.item;
+  var categories = itemFields.categories.split(',');
+  categories.pop();
   db.Items.findByIdAndUpdate(req.params.itemId, {
     name: itemFields.name,
     description: itemFields.description,
@@ -110,7 +120,7 @@ router.post('/items/:itemId', authorizeUser, function (req, res, next) {
     datePurchased: itemFields.datePurchased,
     condition: itemFields.condition,
     imageUrl: itemFields.imageUrl,
-    categories: itemFields.categories,
+    categories: categories,
     }).then(function (item) {
     res.redirect('/users/'+res.locals.user_id+'/items/'+req.params.itemId);
   });
@@ -124,7 +134,5 @@ router.post('/items/:itemId/delete', authorizeUser, function (req, res, next) {
     res.redirect('/users/'+res.locals.user_id+'/items');
   });
 });
-
-
 
 module.exports = router;

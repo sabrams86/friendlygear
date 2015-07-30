@@ -7,8 +7,10 @@ You must build an express/mongo app that:
 √ Must display both the "parent" and the "children" on the same page
 
 √ Has at least one many-to-many relationship
- - Must use an array of ids in one of the collections
- - Must display the "parent" and the "children" on the same page
+
+√ Must use an array of ids in one of the collections
+
+√ Must display the "parent" and the "children" on the same page
 
 √ Has a complete and correct ERD diagram that describes your model
 

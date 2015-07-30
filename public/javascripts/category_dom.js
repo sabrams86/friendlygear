@@ -7,7 +7,7 @@ xhr.addEventListener('load', function () {
   categories.forEach(function (category) {
     var a = document.createElement('a');
     var p = document.createElement('div');
-    a.href = '/?category='+category.name;
+    a.href = '/?category='+category._id;
     a.innerHTML = category.name;
     p.appendChild(a);
     sidemenu.appendChild(p);

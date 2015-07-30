@@ -24,9 +24,19 @@ block content
     .row
       label(for='imageUrl') Image (url)
       input#imageUrl(type='url' name='item[imageUrl]' value='#{item.imageUrl}')
-    .row  
+    #catrow.row
+      input#categorylist.hidden(type='text' name='item[categories]' value='#{catlist}')
       label(for='categories') Categories
-      input#categories(type='text' name='item[categories]' value='#{item.categories}')
+      select#categories.select2-hidden-accessable(name='item[category_select]')
+        each category in categories
+          option(value='#{category._id}')= category.name
+      button#addcategory.sml(type='button') Add Another Category
+      each userCategory in userCategories
+        div.category_tag
+          span= userCategory.name  
+          | 
+          .delete  x
     .row
       input(type='submit' value='Submit')
-        
+block javascript
+  script(src='/javascripts/category_select.js' type='text/javascript')

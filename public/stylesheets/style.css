@@ -230,6 +230,19 @@ input[type='submit'] {
 input.sml {
   font-size: .5em; }
 
+.delete {
+  display: inline-block;
+  cursor: pointer;
+  font-weight: bold; }
+
+.category_tag {
+  color: #fff;
+  background-color: #627C85;
+  display: inline-block;
+  margin: 3px;
+  padding: 2px;
+  border-radius: 3px; }
+
 table {
   width: 100%; }
   table thead {
