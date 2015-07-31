@@ -1,26 +1,34 @@
 extends ./../layout
 
 block content
-  h1 Sign up as a new user
-  form(method='post' action='/users/#{user._id}')
+  h1 Edit Your Information
+  if errors
+    include ./../_error
+  form(method='post' action='/users/#{user_id}')
     .row
-      label(for='username') Username
-      input(type='text' name='username' value='#{user.username}')
+      label.col2(for='username') Username
+      input#username.col6(type='text' name='user[username]' value=(user.username ? user.username : ''))
     .row
-      label(for='email') Email
-      input(type='email' name='email' value='#{user.email}')
+      label.col2(for='email') Email
+      input#email.col6(type='email' name='user[email]' value=(user.email ? user.email : ''))
     .row
-      label(for='name') Name
-      input(type='text' name='name' value='#{user.name}')
+      label.col2(for='name') Name
+      input#name.col6(type='text' name='user[name]' value=(user.name ? user.name : ''))
+    .row  
+      label.col2(for='city') City
+      input#city.col6(type='text' name='user[city]' value=(user.city ? user.city: ''))
+    .row  
+      label.col2(for='name') State
+      input#state.col6(type='text' name='user[state]' value=(user.state ? user.state: ''))
+    .row  
+      label.col2(for='zip') Zipcode
+      input#zip.col6(type='text' name='user[zip]' value=(user.zip ? user.zip: ''))
     .row  
       label.col2(for='avatarUrl') Profile Pic (URL)
-      input#avatarUrl.col6(type='url' name='avatarUrl' value='#{user.avatarUrl}')
+      input#avatarUrl.col6(type='url' name='user[avatarUrl]' value=(user.avatarUrl ? user.avatarUrl: ''))
     .row  
-      label(for='password') Password
-      input(type='password' name='password')
-    .row  
-      label(for='passwordconfirm') Password Confirmation
-      input(type='password' name='passwordconfirm')
+      label.col2(for='password') Password
+      input#password.col6(type='password' name='user[password]')
     .row  
       input(type='submit' value='Submit')
   a(href='/users/#{user._id}/items') Back

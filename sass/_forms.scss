@@ -7,9 +7,10 @@ input {
   outline: none;
   font-weight: 300;
 }
-input[type='text']{
+input[type='text'], input[type='url'], input[type='date'], select{
   height: 2em;
 }
+
 textarea {
   background-color: $white;
   outline: none;

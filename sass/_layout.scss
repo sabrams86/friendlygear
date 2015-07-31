@@ -49,10 +49,12 @@ main > .container {
 }
 .col6 {
   display: inline-block;
+  vertical-align: top;
   width: 50%;
 }
 .col2 {
   display: inline-block;
+  vertical-align: top;
   width: 20%;
 }
 .clear {
@@ -60,4 +62,7 @@ main > .container {
 }
 .hidden {
   display: none;
+}
+.block {
+  display: block;
 }

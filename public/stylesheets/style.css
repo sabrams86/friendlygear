@@ -98,10 +98,12 @@ main > .container {
 
 .col6 {
   display: inline-block;
+  vertical-align: top;
   width: 50%; }
 
 .col2 {
   display: inline-block;
+  vertical-align: top;
   width: 20%; }
 
 .clear {
@@ -109,6 +111,9 @@ main > .container {
 
 .hidden {
   display: none; }
+
+.block {
+  display: block; }
 
 html {
   font-size: 1em; }
@@ -176,7 +181,7 @@ input {
   outline: none;
   font-weight: 300; }
 
-input[type='text'] {
+input[type='text'], input[type='url'], input[type='date'], select {
   height: 2em; }
 
 textarea {

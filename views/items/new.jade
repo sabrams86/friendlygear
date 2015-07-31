@@ -7,31 +7,38 @@ block content
     include ./../_error.jade
   form(method='post' action='/users/#{user_id}/items')
     .row
-      label(for='name') Name
-      input#name(type='text' name='item[name]')
+      label.col2(for='name') Name
+      input#name.col6(type='text' name='item[name]')
     .row
-      label(for='brand') Brand
-      input#brand(type='text' name='item[brand]')
+      label.col2(for='brand') Brand
+      input#brand.col6(type='text' name='item[brand]')
     .row
-      label(for='description') Description
-      textarea#description(name='item[description]')
+      label.col2(for='description') Description
+      textarea#description.col6(name='item[description]' rows='5')
     .row
-      label(for='datePurchased') Date Purchased
-      input#datePurchased(type='date' name='item[datePurchased]')
+      label.col2(for='datePurchased') Date Purchased
+      input#datePurchased.col6(type='date' name='item[datePurchased]')
     .row
-      label(for='condition') Condition
-      input#condition(type='text' name='item[condition]')
+      label.col2(for='condition') Condition
+      select#condition.col6(name='item[condition]')
+        option(value='good') Good (Just like new)
+        option(value='new') New (Never been used, really)
+        option(value='used') Used (Used but no major flaws, wear and tear that would be expected based on the age)
+        option(value='fair') Fair (a few issues, but still useable)
+        option(value='damaged') Damaged (may not be useable, i.e. a hole in a tent, or flat tire on a bike)
+        option(value='old') Old (old, but still in good condition for its age)
     .row
-      label(for='imageUrl') Image (url)
-      input#imageUrl(type='url' name='item[imageUrl]')
+      label.col2(for='imageUrl') Image (url)
+      input#imageUrl.col6(type='url' name='item[imageUrl]')
     #catrow.row
       input#categorylist.hidden(type='text' name='item[categories]')
-      label(for='categories') Categories
-      select#categories.select2-hidden-accessable(name='item[category_select]')
+      label.col2(for='categories') Categories
+      select#categories.col6.select2-hidden-accessable(name='item[category_select]')
         each category in categories
           option(value='#{category._id}')= category.name
-      button#addcategory.sml(type='button') Add Another Category
+      button#addcategory.sml.block(type='button') Add Another Category
     .row
+      .col2
       input(type='submit' value='Submit')
 block javascript
   script(src='/javascripts/category_select.js' type='text/javascript')

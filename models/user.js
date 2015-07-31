@@ -7,7 +7,10 @@ var userSchema = new mongoose.Schema({
   email: String,
   dateJoined: Date,
   interests: String,
-  avatarUrl: String
+  avatarUrl: String,
+  city: String,
+  state: String,
+  zip: String
 })
 
 var User = mongoose.model('User', userSchema);

@@ -7,22 +7,31 @@ block content
   form(method='post' action='/users')
     .row
       label.col2(for='username') Username
-      input.col6(type='text' name='username' value=(username ? username: ''))
+      input#username.col6(type='text' name='user[username]' value=(user ? user.username: ''))
     .row  
       label.col2(for='email') Email
-      input.col6(type='email' name='email' value=(email ? email: ''))
+      input#email.col6(type='email' name='user[email]' value=(user ? user.email: ''))
     .row  
       label.col2(for='name') Name
-      input.col6(type='text' name='name' value=(name ? name: ''))
+      input#name.col6(type='text' name='user[name]' value=(user ? user.name: ''))
+    .row  
+      label.col2(for='city') City
+      input#city.col6(type='text' name='user[city]' value=(user ? user.city: ''))
+    .row  
+      label.col2(for='name') State
+      input#state.col6(type='text' name='user[state]' value=(user ? user.state: ''))
+    .row  
+      label.col2(for='zip') Zipcode
+      input#zip.col6(type='text' name='user[zip]' value=(user ? user.zip: ''))
     .row  
       label.col2(for='avatarUrl') Profile Pic (URL)
-      input#avatarUrl.col6(type='url' name='avatarUrl' value=(avatarUrl ? avatarUrl: ''))
+      input#avatarUrl.col6(type='url' name='user[avatarUrl]' value=(user ? user.avatarUrl: ''))
     .row  
       label.col2(for='password') Password
-      input.col6(type='password' name='password')
+      input#password.col6(type='password' name='user[password]')
     .row  
       label.col2(for='passwordconfirm') Password Confirmation
-      input.col6(type='password' name='passwordconfirm')
+      input#passwordconfirm.col6(type='password' name='user[passwordconfirm]')
     .row  
       .col2
       input(type='submit' value='Submit')

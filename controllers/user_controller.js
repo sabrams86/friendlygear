@@ -30,25 +30,32 @@ var edit = function(req, res, next) {
 }
 
 var create = function(req, res, next) {
+  var userFields = req.body.user;
   var validate = new Validator;
-  validate.exists(req.body.username, 'Username cannot be blank');
-  validate.exists(req.body.email, 'Email cannot be blank');
-  validate.exists(req.body.name, 'Name cannot be blank');
-  validate.exists(req.body.password, 'Please enter a password');
-  validate.password(req.body.password, req.body.passwordconfirm, 'Passwords do not match');
+  validate.exists(userFields.username, 'Username cannot be blank');
+  validate.exists(userFields.email, 'Email cannot be blank');
+  validate.exists(userFields.name, 'Name cannot be blank');
+  validate.exists(userFields.zip, 'Zipcode cannot be blank');
+  validate.exists(userFields.city, 'City cannot be blank');
+  validate.exists(userFields.state, 'State cannot be blank');
+  validate.exists(userFields.password, 'Please enter a password');
+  validate.password(userFields.password, userFields.passwordconfirm, 'Passwords do not match');
   if(validate._errors.length > 0) {
-    res.render('users/new', {username: req.body.username, email: req.body.email, name: req.body.name, avatarUrl: req.body.avatarUrl, errors: validate._errors});
+    res.render('users/new', {user: userFields, errors: validate._errors});
   } else {
-    date = new Date();
+    var date = new Date();
     date = date.toString();
-    password = bcrypt.hashSync(req.body.password, 8);
+    var password = bcrypt.hashSync(userFields.password, 8);
     db.Users.create({
-      username: req.body.username,
+      username: userFields.username,
       password: password,
-      email: req.body.email,
+      email: userFields.email,
+      city: userFields.city,
+      state: userFields.state,
+      zip: userFields.zip,
       dateJoined: date,
-      name: req.body.name,
-      avatarUrl: req.body.avatarUrl
+      name: userFields.name,
+      avatarUrl: userFields.avatarUrl
       }).then(function (result) {
         console.log(result);
       req.session.user = result._id;
@@ -58,26 +65,44 @@ var create = function(req, res, next) {
 }
 
 var update = function(req, res, next) {
-  db.Users.findByIdAndUpdate(req.params.userId, {
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    name: req.body.name,
-    avatarUrl: req.body.avatarUrl
-    }).then(function (result) {
-    res.redirect('/users/'+req.params.userId);
-  });
+  var userFields = req.body.user;
+  console.log(req.body.user);
+  var validate = new Validator;
+  validate.exists(userFields.username, 'Username cannot be blank');
+  validate.exists(userFields.email, 'Email cannot be blank');
+  validate.exists(userFields.name, 'Name cannot be blank');
+  validate.exists(userFields.zip, 'Zipcode cannot be blank');
+  validate.exists(userFields.city, 'City cannot be blank');
+  validate.exists(userFields.state, 'State cannot be blank');
+  validate.exists(userFields.password, 'Please enter your password');
+  if(validate._errors.length > 0) {
+    res.render('users/edit', {user_id: req.params.userId, user: req.body.user, errors: validate._errors});
+  } else {
+    db.Users.findById(req.params.userId).then(function (user) {
+      console.log(user);
+      if(bcrypt.compareSync(userFields.password, user.password)){
+        db.Users.findByIdAndUpdate(req.params.userId, {
+          username: userFields.username,
+          city: userFields.city,
+          state: userFields.state,
+          zip: userFields.zip,
+          email: userFields.email,
+          name: userFields.name,
+          avatarUrl: userFields.avatarUrl
+          }).then(function (result) {
+          res.redirect('/users/'+req.params.userId);
+        });
+      } else {
+        res.render('users/edit', {user_id: req.params.userId, user: userFields, errors: ['Incorrect Password, Information not saved']});
+      }
+    })
+  }
 }
 
 var destroy = function(req, res, next) {
-  db.Users.findByIdAndUpdate(req.params.userId, {
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    name: req.body.name,
-    avatarUrl: req.body.avatarUrl
-    }).then(function (result) {
-    res.redirect('/users/'+req.params.userId);
+  db.Users.findByIdAndRemove(req.params.userId).then(function () {
+    req.session = null;
+    res.redirect('/');
   });
 }
 module.exports.index = index;

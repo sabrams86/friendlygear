@@ -7,36 +7,43 @@ block content
     include ./../_error
   form(method='post' action='/users/#{user_id}/items/#{item._id}')
     .row
-      label(for='name') Name
-      input#name(type='text' name='item[name]' value='#{item.name}')
+      label.col2(for='name') Name
+      input#name.col6(type='text' name='item[name]' value='#{item.name}')
     .row
-      label(for='brand') Brand
-      input#brand(type='text' name='item[brand]' value='#{item.brand}')
+      label.col2(for='brand') Brand
+      input#brand.col6(type='text' name='item[brand]' value='#{item.brand}')
     .row
-      label(for='description') Description
-      textarea#description(name='item[description]')= item.description
+      label.col2(for='description') Description
+      textarea#description.col6(name='item[description]')= item.description
     .row
-      label(for='datePurchased') Date Purchased
-      input#datePurchased(type='date' name='item[datePurchased]' value='#{item.datePurchased}')
+      label.col2(for='datePurchased') Date Purchased
+      input#datePurchased.col6(type='date' name='item[datePurchased]' value='#{item.datePurchased}')
     .row  
-      label(for='condition') Condition
-      input#condition(type='text' name='item[condition]' value='#{item.condition}')
+      label.col2(for='condition') Condition
+      select#condition.col6(name='item[condition]')
+        option(value='good' selected=(item.condition === 'good' ? 'true' : undefined)) Good (Just like new)
+        option(value='new' selected=(item.condition === 'new' ? 'true' : undefined)) New (Never been used, really)
+        option(value='used' selected=(item.condition === 'used' ? 'true' : undefined)) Used (Used but no major flaws, wear and tear that would be expected based on the age)
+        option(value='fair' selected=(item.condition === 'fair' ? 'true' : undefined)) Fair (a few issues, but still useable)
+        option(value='damaged' selected=(item.condition === 'damaged' ? 'true' : undefined)) Damaged (may not be useable, i.e. a hole in a tent, or flat tire on a bike)
+        option(value='old' selected=(item.condition === 'old' ? 'true' : undefined)) Old (old, but still in good condition for its age)
     .row
-      label(for='imageUrl') Image (url)
-      input#imageUrl(type='url' name='item[imageUrl]' value='#{item.imageUrl}')
+      label.col2(for='imageUrl') Image (url)
+      input#imageUrl.col6(type='url' name='item[imageUrl]' value='#{item.imageUrl}')
     #catrow.row
       input#categorylist.hidden(type='text' name='item[categories]' value='#{catlist}')
-      label(for='categories') Categories
-      select#categories.select2-hidden-accessable(name='item[category_select]')
+      label.col2(for='categories') Categories
+      select#categories.col6.select2-hidden-accessable(name='item[category_select]')
         each category in categories
           option(value='#{category._id}')= category.name
-      button#addcategory.sml(type='button') Add Another Category
+      button#addcategory.sml.block(type='button') Add Another Category
       each userCategory in userCategories
         div.category_tag
           span= userCategory.name  
           | 
           .delete  x
     .row
+      .col2
       input(type='submit' value='Submit')
 block javascript
   script(src='/javascripts/category_select.js' type='text/javascript')

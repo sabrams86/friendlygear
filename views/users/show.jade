@@ -3,9 +3,11 @@ extends ./../layout
 block content
   h1 #{user.name}'s info
   img.avatar(src='#{user.avatarUrl}' alt='profile pic')
-  p Username
+  h6 Username
   p= user.username
-  p Email
+  h6 Email
   p= user.email
+  h6 Location
+  p #{user.city}, #{user.state} #{user.zip}
   a(href='/users/#{user._id}/edit') Edit my info
   a(href='/users/#{user._id}/items') Back

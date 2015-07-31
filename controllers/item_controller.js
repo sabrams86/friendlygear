@@ -25,7 +25,9 @@ var newpage = function (req, res, next) {
 
 var show = function (req, res, next) {
   db.Items.findById(req.params.itemId).then(function (item) {
-    res.render('items/show', {user: req.session.user, owner: res.locals.user_id, item: item, user_id: req.session.user});
+    db.Categories.find({_id: {$in: item.categories}}).then(function (categories) {
+      res.render('items/show', {user: req.session.user, owner: res.locals.user_id, item: item, categories: categories, user_id: req.session.user});
+    });
   });
 }
 

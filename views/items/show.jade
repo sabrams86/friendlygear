@@ -2,22 +2,33 @@ extends ./../layout
 
 block content
   if !user 
-    a(href='/') Login to Rent this!
+    h5 Login to Rent this!
   else if user != item.userId
-    a(href='/users/#{item.userId}/items/#{item._id}/contracts/new') Rent it!
+    h4
+      a(href='/users/#{item.userId}/items/#{item._id}/contracts/new') Rent it!
   else if user === owner
-    a(href='/') Pending Rentals
+    h4
+      a(href='/') Pending Rentals
+      a(href='/users/#{item.userId}/items/#{item._id}/edit') Edit
   else
-  h1= item.name
-  p 
-    strong Description
-  p= item.description
-  p 
-    strong Brand
-  p= item.brand
-  p
-    strong Condition
-  p= item.condition
-  p
-    strong Age
+  h2= item.name
+  img(src='#{item.imageUrl}' alt='broken image')
+  .row 
+    .col2 
+      h6 Description:
+    .col6= item.description
+  .row 
+    .col2
+      h6 Brand:
+    .col6= item.brand
+  .row
+    .col2
+      h6 Condition:
+    .col6= item.condition
+  .row
+    .col6
+      h6 Categories:
+      ul
+        each category in categories
+          li= category.name
   a(href='/users/#{user_id}/items') Back
