@@ -7,10 +7,12 @@ var loginUser = function (req, res, next) {
       req.session.user = user._id;
       res.redirect('/users/'+user._id+'/items');
     } else {
-      res.redirect('/');
+      res.redirect('/', {error: 'Password is incorrect, please try again'});
     }
+  }, function (err) {
+    res.redirect('/', {flash: 'Username not found, please try again'});
   });
-};
+}
 
 var logoutUser = function (req, res, next) {
   req.session = null;

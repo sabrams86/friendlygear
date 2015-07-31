@@ -28,4 +28,5 @@ You must build an express/mongo app that:
 
 - not have any references to Monk or Mongoose in your routes files
 
- - all db-related calls must be in files in your ./lib directory
+- all db-related calls must be in files in your ./lib directory
+- fix login route
