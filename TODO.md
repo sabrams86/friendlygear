@@ -19,9 +19,13 @@ You must build an express/mongo app that:
 √ Allows users to CRUD all of the models in the app
 
 √ See UI patterns for suggestions
-- Server-side validations on all objects
- - simple required-field validations will work
 
-- use all promises (no callbacks allowed!)
+√ Server-side validations on all objects
+
+√ simple required-field validations will work
+
+√ use all promises (no callbacks allowed!)
+
 - not have any references to Monk or Mongoose in your routes files
+
  - all db-related calls must be in files in your ./lib directory

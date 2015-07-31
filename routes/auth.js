@@ -1,22 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var db = require('./../models');
-var bcrypt = require('bcryptjs');
+var db = require('./../controllers/auth_controller');
 
-router.post('/login', function (req, res, next) {
-  db.Users.findOne({username: req.body.username}).then(function (user) {
-    if (bcrypt.compareSync(req.body.password, user.password)){
-      req.session.user = user._id;
-      res.redirect('/users/'+user._id+'/items');
-    } else {
-      res.redirect('/');
-    }
-  });
-});
+router.post('/login', db.loginUser);
 
-router.get('/logout', function (req, res, next) {
-  req.session = null;
-  res.redirect('/');
-});
+router.get('/logout', db.logoutUser);
 
 module.exports = router;

@@ -1,137 +1,27 @@
 var express = require('express');
 var router = express.Router();
-var db = require('./../models');
-var bcrypt = require('bcryptjs');
-var lib = require('./../lib/user_lib');
-var Validator = require('./../lib/validator');
+var auth = require('./../lib/authorization');
+var db = require('./../controllers/user_controller');
 
-var authorizeUser = function (req, res, next) {
-  if (req.session.user) {
-    db.Users.findById(req.params.userId).then(function (user) {
-      if(req.session.user === user._id.toString()){
-        next();
-      } else {
-        req.flash('flash', 'You do not have access to that page');
-        res.redirect('/');
-      }
-    });
-  } else {
-    req.flash('flash', 'You do not have access to that page, try logging in');
-    res.redirect('/');
-  }
-}
+//INDEX
+router.get('/users', auth.authorizeUser, db.index);
 
-var authorizeAdmin = function (req, res, next) {
-  if (req.session.user) {
-    db.Users.findById(req.params.userId).then(function (user) {
-      if(req.session.user === user._id.toString()){
-        next();
-      } else {
-        req.flash('flash', 'You do not have access to that page');
-        res.redirect('/');
-      }
-    });
-  } else {
-    req.flash('flash', 'You do not have access to that page, try logging in');
-    res.redirect('/');
-  }
-}
+//NEW
+router.get('/users/new', db.newpage);
 
-//***********
-//** INDEX **
-//***********
-router.get('/users', authorizeUser, function(req, res, next) {
-  db.Users.find({}).then(function (results) {
-    res.render('users/index', {users: results, flash: req.flash('flash'), user_id: req.session.user});
-  });
-});
+//SHOW
+router.get('/users/:userId', auth.authorizeUser, db.show);
 
-//***********
-//** NEW   **
-//***********
-router.get('/users/new', function (req, res, next) {
-  res.render('users/new');
-});
+//EDIT
+router.get('/users/:userId/edit', auth.authorizeUser, db.edit);
 
-//***********
-//** SHOW  **
-//***********
-router.get('/users/:userId', authorizeUser, function(req, res, next) {
-  db.Users.findById(req.params.userId).then(function (result) {
-    if(req.session.user === result._id.toString()){
-      res.render('users/show', {user: result,  user_id: req.session.user});
-    } else {
-      req.flash('flash', 'You do not have access to that page');
-      res.redirect('/');
-    }
-  });
-});
+//CREATE
+router.post('/users', db.create);
 
-//***********
-//** EDIT **
-//***********
-router.get('/users/:userId/edit', authorizeUser, function(req, res, next) {
-  lib(req.params.userId).then(function (result) {
-    res.render('users/edit', {user: result, user_id: req.session.user});
-  });
-});
+//UPDATE
+router.post('/users/:userId', auth.authorizeUser, db.update);
 
-//***********
-//** CREATE**
-//***********
-router.post('/users', function(req, res, next) {
-  var validate = new Validator;
-  validate.exists(req.body.username, 'Username cannot be blank');
-  validate.exists(req.body.email, 'Email cannot be blank');
-  validate.exists(req.body.name, 'Name cannot be blank');
-  validate.exists(req.body.password, 'Please enter a password');
-  validate.password(req.body.password, req.body.passwordconfirm, 'Passwords do not match');
-  if(validate._errors.length > 0) {
-    console.log('asdf');
-    res.render('users/new', {username: req.body.username, email: req.body.email, name: req.body.name, avatarUrl: req.body.avatarUrl, errors: validate._errors});
-  } else {
-    console.log('fdas');
-    date = new Date();
-    date = date.toString();
-    password = bcrypt.hashSync(req.body.password, 8);
-    db.Users.create({
-      username: req.body.username,
-      password: password,
-      email: req.body.email,
-      dateJoined: date,
-      name: req.body.name,
-      avatarUrl: req.body.avatarUrl
-      }).then(function (result) {
-      req.session.user = result._id;
-      res.redirect('/users/'+result._id);
-    });
-  }
-});
-
-//***********
-//** UPDATE**
-//***********
-router.post('/users/:userId', authorizeUser, function(req, res, next) {
-  db.Users.findByIdAndUpdate(req.params.userId, {
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    name: req.body.name,
-    avatarUrl: req.body.avatarUrl
-    }).then(function (result) {
-    res.redirect('/users/'+req.params.userId);
-  });
-});
-
-//***********
-//** DELETE**
-//***********
-router.post('/users/:userId/delete', authorizeUser, function(req, res, next) {
-  db.Users.findByIdAndRemove(req.params.userId).then(function (result) {
-    res.redirect('/');
-  });
-});
-
-
+//DELETE
+router.post('/users/:userId/delete', auth.authorizeUser, db.destroy);
 
 module.exports = router;

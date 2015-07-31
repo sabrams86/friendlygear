@@ -1,18 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var db = require('./../models');
+var db = require('./../controllers/index_controller');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  if (req.query.category) {
-    var query = {categories: {$in: [req.query.category]}}
-  } else {
-    var query = {};
-  }
-  db.Items.find(query).then(function (items) {
-    console.log(items);
-    res.render('index', { items: items, flash: req.flash('flash')});
-  });
-});
+router.get('/', db.index);
 
 module.exports = router;
