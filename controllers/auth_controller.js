@@ -2,7 +2,7 @@ var db = require('./../models');
 var bcrypt = require('bcryptjs');
 
 var loginUser = function (req, res, next) {
-  db.Users.find({username: req.body.username}).then(function (user) {
+  db.Users.findOne({username: req.body.username}).then(function (user) {
     if (bcrypt.compareSync(req.body.password, user.password)){
       req.session.user = user._id;
       res.redirect('/users/'+user._id+'/items');

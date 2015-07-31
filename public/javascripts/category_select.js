@@ -15,7 +15,11 @@ $(document).ready(function() {
     $('#categorylist').val(categorylist);
   });
   $('#catrow').on('click', '.delete', function () {
-    console.log('asdf');
+    var name = $(this).siblings('span').text();
+    var id = $("option:contains("+name+")").val();
+    var currentCategories = $('#categorylist').val();
+    var categorylist = currentCategories.replace((id+','), '');
+    $('#categorylist').val(categorylist);
     $(this).parent().remove();
   })
 });

@@ -53,12 +53,12 @@ app.use('/', users);
 app.use('/', categories);
 
 app.use('/users/:userId', function (req, res, next) {
-  res.locals.user_id = req.params.userId;
+  res.locals.owner = req.params.userId;
   next();
 }, items);
 
 app.use('/users/:userId/items/:itemId', function (req, res, next) {
-  res.locals.user_id = req.params.userId;
+  res.locals.owner = req.params.userId;
   res.locals.item_id = req.params.itemId;
   next();
 }, contracts);
