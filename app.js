@@ -53,12 +53,12 @@ app.use('/', users);
 app.use('/', categories);
 
 app.use('/users/:userId', function (req, res, next) {
-  res.locals.owner = req.params.userId;
+  res.locals.owner_id = req.params.userId;
   next();
 }, items);
 
 app.use('/users/:userId/items/:itemId', function (req, res, next) {
-  res.locals.owner = req.params.userId;
+  res.locals.owner_id = req.params.userId;
   res.locals.item_id = req.params.itemId;
   next();
 }, contracts);
@@ -93,6 +93,7 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
 
 
 module.exports = app;

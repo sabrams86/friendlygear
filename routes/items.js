@@ -13,15 +13,15 @@ router.get('/items/new', db.newpage);
 router.get('/items/:itemId', db.show);
 
 //EDIT
-router.get('/items/:itemId/edit', auth.authorizeUser, db.edit);
+router.get('/items/:itemId/edit', auth.authorizeOwner, db.edit);
 
 //CREATE
 router.post('/items', db.create);
 
 //UPDATE
-router.post('/items/:itemId', auth.authorizeUser, db.update);
+router.post('/items/:itemId', auth.authorizeOwner, db.update);
 
 //DELETE
-router.post('/items/:itemId/delete', auth.authorizeUser, db.destroy);
+router.post('/items/:itemId/delete', auth.authorizeOwner, db.destroy);
 
 module.exports = router;

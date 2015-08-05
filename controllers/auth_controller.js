@@ -3,14 +3,18 @@ var bcrypt = require('bcryptjs');
 
 var loginUser = function (req, res, next) {
   db.Users.findOne({username: req.body.username}).then(function (user) {
-    if (bcrypt.compareSync(req.body.password, user.password)){
-      req.session.user = user._id;
-      res.redirect('/users/'+user._id+'/items');
+    if (user){
+      if (bcrypt.compareSync(req.body.password, user.password)){
+        req.session.user = user._id;
+        res.redirect('/users/'+user._id+'/items');
+      } else {
+        req.flash('flash', 'Password is incorrect, please try again')
+        res.redirect('/');
+      }
     } else {
-      res.redirect('/', {error: 'Password is incorrect, please try again'});
+      req.flash('flash', 'Username not found, please try again')
+      res.redirect('/');
     }
-  }, function (err) {
-    res.redirect('/', {flash: 'Username not found, please try again'});
   });
 }
 

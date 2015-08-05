@@ -5,7 +5,8 @@ var contractSchema = new mongoose.Schema({
   sellerId: String,
   buyerId: String,
   startDate: Date,
-  endDate: Date
+  endDate: Date,
+  status: String
 });
 
 var Contract = mongoose.model('Contract', contractSchema);

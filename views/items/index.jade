@@ -2,10 +2,48 @@ extends ./../layout
 
 block content
   h3 Welcome #{user.name}
-  img.avatar(src='#{user.avatarUrl}' alt='profile pic')
-  
+  a(href='/users/#{user_id}/items/new') Add a new item
   p
-    a(href='/users/#{user_id}/items/new') Add a new item
+  img.avatar(src='#{user.avatarUrl}' alt='profile pic')
+  .col8
+    if sellerContracts.length > 0
+      h4.noTop Rental Requests
+      table.rentals
+        thead
+          tr
+            th Item
+            th Status
+            th Start Date
+            th End Date
+            th Options
+        tbody
+          each sellerContract in sellerContracts
+            tr
+              td
+              td= sellerContract.status
+              td
+              td
+              td Edit
+    if buyerContracts.length > 0          
+      h4.noTop Your Pending Rentals
+      table.rentals
+        thead
+          tr
+            th Item
+            th Status
+            th Start Date
+            th End Date
+            th Options
+        tbody
+          each buyerContract in buyerContracts
+            tr
+              td
+              td= buyerContract.status
+              td
+              td
+              td Edit
+  table
+  h3 Your Gear
   table
     thead
       tr

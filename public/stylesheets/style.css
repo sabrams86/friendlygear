@@ -115,6 +115,18 @@ main > .container {
 .block {
   display: block; }
 
+.col8 {
+  display: inline-block;
+  vertical-align: top;
+  width: 60%;
+  box-sizing: border-box;
+  overflow: auto;
+  padding: 20px; }
+
+.noTop {
+  margin-top: 0;
+  padding-top: 0; }
+
 html {
   font-size: 1em; }
 
@@ -262,6 +274,9 @@ table {
   table tbody td {
     padding: 5px; }
 
+.rentals {
+  width: 100%; }
+
 .listing {
   display: inline-block;
   width: 300px;
@@ -279,3 +294,9 @@ table {
   margin-top: 0; }
   .title a {
     text-decoration: none; }
+
+.avatar {
+  display: inline-block;
+  width: 40%;
+  box-sizing: border-box;
+  overflow: auto; }

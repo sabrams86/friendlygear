@@ -4,7 +4,21 @@ var Validator = require('./../lib/validator');
 var index = function(req, res, next) {
   if(req.session.user){
     db.Items.find({userId: req.session.user}).then(function (items) {
-      res.render('items/index', {items: items, user: res.locals.user,  user_id: req.session.user});
+      console.log(res.locals);
+      db.Contracts.find({$or: [{sellerId: res.locals.user_id}, {buyerId: res.locals.user_id}]}).then(function (contracts) {
+        console.log(contracts);
+        var sellerContracts = []
+        var buyerContracts = [];
+        contracts.forEach(function (contract) {
+          if(contract.sellerId === req.session.user) {
+            sellerContracts.push(contract);
+          } else {
+            buyerContracts.push(contract);
+          }
+        })
+        console.log(sellerContracts, buyerContracts);
+        res.render('items/index', {items: items, sellerContracts: sellerContracts, buyerContracts: buyerContracts, user: res.locals.user,  user_id: req.session.user});
+      })
     });
   } else {
     req.flash('flash', 'You must be logged in to see that page');

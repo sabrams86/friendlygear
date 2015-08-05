@@ -4,7 +4,7 @@ block content
   h1 Gear Rental form
   if errors
     include ./../_error
-  form(method='post' action='/users/#{user}/items/#{item}/contracts')
+  form(method='post' action='/users/#{owner_id}/items/#{item}/contracts')
     label(for='startDate') Pickup Date
     input#startDate(type='date' name='startDate')
     label(for='endDate') Dropoff Date

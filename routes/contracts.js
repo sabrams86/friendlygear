@@ -3,25 +3,22 @@ var router = express.Router();
 var auth = require('./../lib/authorization');
 var db = require('./../controllers/contract_controller');
 
-//INDEX **
-router.get('/contracts', db.index);
-
 //NEW
-router.get('/contracts/new', auth.getUser, db.newpage)
+router.get('/contracts/new', db.newpage)
 
 //SHOW
-router.get('/contracts/:contractId', db.show);
+router.get('/contracts/:contractId', auth.contractMember, db.show);
 
 //EDIT
-router.get('/contracts/:contractId/edit', db.edit);
+router.get('/contracts/:contractId/edit', auth.contractMember, db.edit);
 
 //CREATE
-router.post('/contracts', auth.getUser, db.create);
+router.post('/contracts', db.create);
 
 //UPDATE
-router.post('/contracts/:contractId', auth.getUser, db.update);
+router.post('/contracts/:contractId', auth.contractMember, db.update);
 
 //DELETE
-router.post('/contracts/:contractId/delete', auth.getUser, db.destroy);
+router.post('/contracts/:contractId/delete', auth.contractMember, db.destroy);
 
 module.exports = router;
