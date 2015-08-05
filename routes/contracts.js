@@ -20,5 +20,7 @@ router.post('/contracts/:contractId', auth.contractMember, db.update);
 
 //DELETE
 router.post('/contracts/:contractId/delete', auth.contractMember, db.destroy);
+//APPROVE
+router.post('/contracts/:contractId/approve', auth.contractMember, db.approve);
 
 module.exports = router;

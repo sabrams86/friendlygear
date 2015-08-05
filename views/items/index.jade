@@ -19,11 +19,12 @@ block content
         tbody
           each sellerContract in sellerContracts
             tr
-              td
+              td= sellerContract.item.name
               td= sellerContract.status
+              td= sellerContract.startDate
+              td= sellerContract.endDate
               td
-              td
-              td Edit
+                a(href='/users/#{sellerContract.sellerId}/items/#{sellerContract.itemId}/contracts/#{sellerContract._id}') View Rental
     if buyerContracts.length > 0          
       h4.noTop Your Pending Rentals
       table.rentals
@@ -37,11 +38,12 @@ block content
         tbody
           each buyerContract in buyerContracts
             tr
-              td
+              td= buyerContract.item.name
               td= buyerContract.status
+              td= buyerContract.startDate
+              td= buyerContract.endDate
               td
-              td
-              td Edit
+                a(href='/users/#{buyerContract.sellerId}/items/#{buyerContract.itemId}/contracts/#{buyerContract._id}') View Rental
   table
   h3 Your Gear
   table

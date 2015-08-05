@@ -4,20 +4,39 @@ var Validator = require('./../lib/validator');
 var index = function(req, res, next) {
   if(req.session.user){
     db.Items.find({userId: req.session.user}).then(function (items) {
-      console.log(res.locals);
       db.Contracts.find({$or: [{sellerId: res.locals.user_id}, {buyerId: res.locals.user_id}]}).then(function (contracts) {
-        console.log(contracts);
-        var sellerContracts = []
-        var buyerContracts = [];
-        contracts.forEach(function (contract) {
-          if(contract.sellerId === req.session.user) {
-            sellerContracts.push(contract);
-          } else {
-            buyerContracts.push(contract);
-          }
+        itemIds = contracts.map(function (e) {
+          return e.itemId;
         })
-        console.log(sellerContracts, buyerContracts);
-        res.render('items/index', {items: items, sellerContracts: sellerContracts, buyerContracts: buyerContracts, user: res.locals.user,  user_id: req.session.user});
+        db.Items.find({_id: {$in: itemIds}}).then(function (rentalItems) {
+          var sellerContracts = [];
+          var buyerContracts = [];
+          contracts.forEach(function (contract) {
+            if(contract.sellerId === req.session.user) {
+              rentalItems.forEach(function (rentalItem) {
+                if (rentalItem._id.toString() === contract.itemId){
+                  contract.item = rentalItem;
+                }
+              })
+              sellerContracts.push(contract);
+            } else {
+              rentalItems.forEach(function (rentalItem) {
+                if (rentalItem._id.toString() === contract.itemId) {
+                  contract.item = rentalItem;
+                }
+              })
+              buyerContracts.push(contract);
+            }
+          })
+          // console.log(sellerContracts, buyerContracts);
+          res.render('items/index', {items: items,
+            rentalItems: rentalItems,
+            sellerContracts: sellerContracts,
+            buyerContracts: buyerContracts,
+            user: res.locals.user,
+            user_id: req.session.user
+          });
+        })
       })
     });
   } else {

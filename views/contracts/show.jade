@@ -8,7 +8,7 @@ block content
     h6 You will be notified when the owner of this item has approved or rejected your request.
     form(method='post' action='/users/#{item.ownerId}/items/#{item._id}/contracts/#{contract._id}/delete')
       button(type='submit') Cancel Rental
-  if (userInfo.role === 'Owner')
+  else if (userInfo.role === 'Owner')
     h4 You have a pending request for your #{item.name}
     h4 Status: #{contract.status}
     form(method='post' action='/users/#{item.ownerId}/items/#{item._id}/contracts/#{contract._id}/approve')

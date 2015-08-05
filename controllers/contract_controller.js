@@ -10,19 +10,15 @@ var show = function (req, res, next) {
   db.Contracts.findById(req.params.contractId).then(function (contract) {
     db.Items.findById(contract.itemId).then(function (item) {
       var userInfo = {}
-      if( contract.ownerId === req.session.user){
-        userInfo.role = 'Owner';
-      } else {
+      console.log(contract.buyerId, req.session.user);
+      if( contract.buyerId === req.session.user){
         userInfo.role = 'Renter';
+      } else {
+        userInfo.role = 'Owner';
       }
       res.render('contracts/show', {contract: contract, item: item, userInfo: userInfo});
     })
   });
-  // db.Contracts.findById(req.params.contractId).then(function (contract) {
-  //   if(contract.ownerId === res.locals.owner_id) {
-  //     res.render('c')
-  //   }
-  // })
 }
 
 var create = function (req, res, next) {
@@ -86,3 +82,4 @@ module.exports.create = create;
 module.exports.edit = edit;
 module.exports.update = update;
 module.exports.destroy = destroy;
+module.exports.approve = approve;
