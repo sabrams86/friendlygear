@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var itemSchema = new mongoose.Schema({
   name: String,
   description: String,
-  datePurchased: Date,
+  datePurchased: String,
   condition: String,
   brand: String,
   categories: Array,

@@ -17,7 +17,7 @@ block content
       textarea#description.col6(name='item[description]')= item.description
     .row
       label.col2(for='datePurchased') Date Purchased
-      input#datePurchased.col6(type='date' name='item[datePurchased]' value='#{item.datePurchased}')
+      input#datePurchased.col6(type='date' name='item[datePurchased]'  value=(item ? item.datePurchased : ''))
     .row  
       label.col2(for='condition') Condition
       select#condition.col6(name='item[condition]')

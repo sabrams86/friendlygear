@@ -126,13 +126,16 @@ var update = function (req, res, next) {
     imageUrl: itemFields.imageUrl,
     categories: categories,
     }).then(function (item) {
+      console.log(item);
     res.redirect('/users/'+res.locals.user_id+'/items/'+req.params.itemId);
   });
 }
 
 var destroy = function (req, res, next) {
-  db.Items.findByIdAndRemove(req.params.itemId).then(function (result) {
-    res.redirect('/users/'+res.locals.user_id+'/items');
+  db.Contracts.remove({itemId: req.params.itemId}).then(function () {
+    db.Items.findByIdAndRemove(req.params.itemId).then(function (result) {
+      res.redirect('/users/'+res.locals.user_id+'/items');
+    });
   });
 }
 

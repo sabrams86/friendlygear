@@ -8,30 +8,30 @@ block content
   form(method='post' action='/users/#{user_id}/items')
     .row
       label.col2(for='name') Name
-      input#name.col6(type='text' name='item[name]')
+      input#name.col6(type='text' name='item[name]' value=(item ? item.name : ''))
     .row
       label.col2(for='brand') Brand
-      input#brand.col6(type='text' name='item[brand]')
+      input#brand.col6(type='text' name='item[brand]' value=(item ? item.brand : ''))
     .row
       label.col2(for='description') Description
-      textarea#description.col6(name='item[description]' rows='5')
+      textarea#description.col6(name='item[description]' rows='5')= item ? item.description : ''
     .row
       label.col2(for='datePurchased') Date Purchased
-      input#datePurchased.col6(type='date' name='item[datePurchased]')
+      input#datePurchased.col6(type='date' name='item[datePurchased]'  value=(item ? item.datePurchased : ''))
     .row
       label.col2(for='condition') Condition
       select#condition.col6(name='item[condition]')
-        option(value='good') Good (Just like new)
-        option(value='new') New (Never been used, really)
-        option(value='used') Used (Used but no major flaws, wear and tear that would be expected based on the age)
-        option(value='fair') Fair (a few issues, but still useable)
-        option(value='damaged') Damaged (may not be useable, i.e. a hole in a tent, or flat tire on a bike)
-        option(value='old') Old (old, but still in good condition for its age)
+        option(value='good' selected=(item ? (item.condition === 'good' ? 'true' : undefined) : undefined)) Good (Just like new)
+        option(value='new' selected=(item ? (item.condition === 'new' ? 'true' : undefined) : undefined)) New (Never been used, really)
+        option(value='used' selected=(item ? (item.condition === 'used' ? 'true' : undefined) : undefined)) Used (Used but no major flaws, wear and tear that would be expected based on the age)
+        option(value='fair' selected=(item ? (item.condition === 'fair' ? 'true' : undefined) : undefined)) Fair (a few issues, but still useable)
+        option(value='damaged' selected=(item ? (item.condition === 'damaged' ? 'true' : undefined) : undefined)) Damaged (may not be useable, i.e. a hole in a tent, or flat tire on a bike)
+        option(value='old' selected=(item ? (item.condition === 'old' ? 'true' : undefined) : undefined)) Old (old, but still in good condition for its age)
     .row
       label.col2(for='imageUrl') Image (url)
-      input#imageUrl.col6(type='url' name='item[imageUrl]')
+      input#imageUrl.col6(type='url' name='item[imageUrl]'  value=(item ? item.imageUrl : ''))
     #catrow.row
-      input#categorylist.hidden(type='text' name='item[categories]')
+      input#categorylist.hidden(type='text' name='item[categories]' value=(item ? item.categories : ''))
       label.col2(for='categories') Categories
       select#categories.col6.select2-hidden-accessable(name='item[category_select]')
         each category in categories
