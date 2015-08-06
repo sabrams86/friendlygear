@@ -100,9 +100,13 @@ var update = function(req, res, next) {
 }
 
 var destroy = function(req, res, next) {
-  db.Users.findByIdAndRemove(req.params.userId).then(function () {
-    req.session = null;
-    res.redirect('/');
+  db.Items.remove({userId: req.params.userId}).then(function () {
+    db.Contracts.remove({$or: [{sellerId: req.params.userId}, {buyerId: req.params.userId}]}).then(function () {
+      db.Users.findByIdAndRemove(req.params.userId).then(function () {
+        req.session = null;
+        res.redirect('/');
+      });
+    });
   });
 }
 module.exports.index = index;
