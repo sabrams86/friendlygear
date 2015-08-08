@@ -3,6 +3,18 @@
   width: 300px;
   float: left;
   text-align: center;
+  // background-color: rgba($red, 0.7);
+  border-radius: 10px;
+  margin: 10px;
+}
+.listing:nth-of-type(odd){
+  background-color: rgba($red, 0.7);
+}
+.listing:nth-of-type(even){
+  background-color: rgba($green, 0.7);
+}
+.listing:nth-of-type(3){
+  background-color: rgba($blue, 0.7);
 }
 .gearthumbnail {
   height: 100px;

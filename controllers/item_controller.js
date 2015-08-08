@@ -141,7 +141,6 @@ var destroy = function (req, res, next) {
   });
 }
 
-
 module.exports.index = index;
 module.exports.newpage = newpage;
 module.exports.show = show;

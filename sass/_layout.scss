@@ -2,23 +2,35 @@
   box-sizing: border-box;
 }
 html {
-  background: $grey;
+  background: $white;
+  * {
+    box-sizing: border-box;
+  }
 }
 body {
   margin: 0;
   padding: 0;
+  background-image: url(./../images/nomad.jpg);
+  background-position: bottom;
+  background-size: cover;
 }
 header {
+  a{
+    color: $white;
+  }
   height: 100px;
-  background-color: $grey;
+  // background-image: url(./../images/nomad.jpeg);
+  // background-position: bottom;
+  // background-size: cover;
+  // background-color: $green;
 }
 footer {
   height: 60px;
-  background-color: $green;
+  background-color: rgba($green, 0.8);
 }
 main {
   min-height: 600px;
-  background-color: $white;
+  // background-color: rgba($green, 0.7);
   // background-image: url('/images/nomad.jpeg');
   background-size: cover;
   background-position: bottom;
@@ -36,7 +48,7 @@ body {
   padding: 1em;
 }
 main > .container {
-  background: $white;
+  // background: $white;
 }
 .sidemenu {
   padding: 1em;
