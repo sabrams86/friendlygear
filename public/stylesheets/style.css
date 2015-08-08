@@ -58,7 +58,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-image: url("../images/nomad.jpg");
+  background-image: url("/images/nomad.jpg");
   background-position: center;
   background-size: cover;
   background-attachment: fixed; }
@@ -138,7 +138,6 @@ html {
   font-size: 1em; }
 
 body {
-  background-color: #fff;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 300;
   line-height: 1.45;
@@ -264,7 +263,8 @@ input[type='submit'] {
   padding: 8px; }
 
 input.sml {
-  font-size: .5em; }
+  font-size: .5em;
+  width: 100px; }
 
 .delete {
   display: inline-block;
