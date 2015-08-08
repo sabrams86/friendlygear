@@ -11,8 +11,9 @@ body {
   margin: 0;
   padding: 0;
   background-image: url(./../images/nomad.jpg);
-  background-position: bottom;
+  background-position: center;
   background-size: cover;
+  background-attachment: fixed;
 }
 header {
   a{
@@ -22,15 +23,15 @@ header {
   // background-image: url(./../images/nomad.jpeg);
   // background-position: bottom;
   // background-size: cover;
-  // background-color: $green;
+  background-color: $blue;
 }
 footer {
   height: 60px;
-  background-color: rgba($green, 0.8);
+  background-color: rgba($red, 1);
 }
 main {
   min-height: 600px;
-  // background-color: rgba($green, 0.7);
+  background-color: rgba($white, 0.7);
   // background-image: url('/images/nomad.jpeg');
   background-size: cover;
   background-position: bottom;
@@ -46,12 +47,16 @@ body {
   width: 960px;
   height: 100%;
   padding: 1em;
+  box-sizing: border-box;
 }
 main > .container {
   // background: $white;
 }
 .sidemenu {
   padding: 1em;
+  a {
+    color: $black;
+  }
 }
 .right{
   float: right;

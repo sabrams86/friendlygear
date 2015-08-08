@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title= title
+    title FriendlyGear
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet")
     script(src="//code.jquery.com/jquery-1.11.3.min.js")
@@ -11,6 +11,7 @@ html
       .container
         h2.title.left 
           a(href='/') Friendly Gear
+          small  a place for friends with gear
         block head
         if user_id
           .usermenu.right

@@ -49,7 +49,7 @@ var index = function(req, res, next) {
 
 var newpage = function (req, res, next) {
   if(req.session.user){
-    db.Categories.find({}).then(function (categories) {
+    dblib.getCategories().then(function (categories) {
       res.render('items/new', {user_id: req.session.user, categories: categories});
     })
   } else {
@@ -68,32 +68,14 @@ var show = function (req, res, next) {
 
 var create = function (req, res, next) {
   if(req.session.user){
-    var validate = new Validator;
-    var itemFields = req.body.item;
-    var categories = itemFields.categories.split(',');
-    categories.pop();
-    validate.exists(itemFields.name, 'Please add a name for this piece of gear');
-    validate.exists(itemFields.description, 'Description cannot be blank');
-    validate.exists(itemFields.datePurchased, 'Please estimate how old the item is');
-    validate.exists(itemFields.condition, 'Condition cannot be blank');
-    if(validate._errors.length > 0){
-      db.Categories.find().then(function (categories) {
+    dblib.validateItem(req.body.item).then(function () {
+      dblib.createItem(req.body.item, res.locals.user_id).then(function (item) {
+        res.redirect('/users/'+res.locals.user_id+'/items');
+      })}, function () {
+      dblib.getCategories().then(function (categories) {
         res.render('items/new', {item: req.body.item, errors: validate._errors, categories: categories});
       });
-    } else {
-      db.Items.create({
-        name: itemFields.name,
-        description: itemFields.description,
-        brand: itemFields.brand,
-        datePurchased: itemFields.datePurchased,
-        condition: itemFields.condition,
-        categories: categories,
-        imageUrl: itemFields.imageUrl,
-        userId: res.locals.user_id
-        }).then(function (item) {
-        res.redirect('/users/'+res.locals.user_id+'/items');
-      });
-    }
+    })
   } else {
     req.flash('flash', 'You must be logged in to list gear');
     res.redirect('/');
@@ -101,7 +83,7 @@ var create = function (req, res, next) {
 }
 
 var edit = function (req, res, next) {
-  db.Categories.find().then(function (categories) {
+  dblib.getCategories().then(function (categories) {
     db.Items.findById(req.params.itemId).then(function (item) {
       db.Categories.find({_id: {$in: item.categories}}).then(function (userCategories) {
         var categorylist = '';
@@ -115,7 +97,6 @@ var edit = function (req, res, next) {
 }
 
 var update = function (req, res, next) {
-  console.log('asdf');
   var itemFields = req.body.item;
   var categories = itemFields.categories.split(',');
   categories.pop();
@@ -128,7 +109,6 @@ var update = function (req, res, next) {
     imageUrl: itemFields.imageUrl,
     categories: categories,
     }).then(function (item) {
-      console.log(item);
     res.redirect('/users/'+res.locals.user_id+'/items/'+req.params.itemId);
   });
 }

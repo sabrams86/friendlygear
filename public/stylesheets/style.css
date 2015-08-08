@@ -59,20 +59,23 @@ body {
   margin: 0;
   padding: 0;
   background-image: url(./../images/nomad.jpg);
-  background-position: bottom;
-  background-size: cover; }
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed; }
 
 header {
-  height: 100px; }
+  height: 100px;
+  background-color: #1b85b8; }
   header a {
     color: #fff; }
 
 footer {
   height: 60px;
-  background-color: rgba(85, 158, 131, 0.8); }
+  background-color: #ae5a41; }
 
 main {
   min-height: 600px;
+  background-color: rgba(255, 255, 255, 0.7);
   background-size: cover;
   background-position: bottom;
   height: 100%; }
@@ -86,10 +89,13 @@ body {
   margin: 0 auto;
   width: 960px;
   height: 100%;
-  padding: 1em; }
+  padding: 1em;
+  box-sizing: border-box; }
 
 .sidemenu {
   padding: 1em; }
+  .sidemenu a {
+    color: #090302; }
 
 .right {
   float: right; }
@@ -172,7 +178,8 @@ h6 {
   font-size: 1.086em; }
 
 small, .font_small {
-  font-size: 0.5em; }
+  font-size: 0.5em;
+  color: white; }
 
 a {
   color: #fff;
@@ -192,12 +199,20 @@ input {
   background-color: #fff;
   color: #090302;
   outline: none;
-  font-weight: 300; }
-
-input[type='text'], input[type='url'], input[type='date'], select {
+  font-weight: 300;
   height: 2em; }
 
+select {
+  height: 2em;
+  margin: 5px;
+  border-radius: 5px; }
+
+input[type='text'] {
+  width: 50%; }
+
 textarea {
+  margin: 5px;
+  border-radius: 5px;
   background-color: #fff;
   outline: none;
   border: 1px solid #559e83;
@@ -280,23 +295,19 @@ table {
 
 .listing {
   display: inline-block;
-  width: 300px;
+  width: 285px;
   float: left;
   text-align: center;
+  background-color: rgba(85, 158, 131, 0.7);
   border-radius: 10px;
-  margin: 10px; }
-
-.listing:nth-of-type(odd) {
-  background-color: rgba(174, 90, 65, 0.7); }
-
-.listing:nth-of-type(even) {
-  background-color: rgba(85, 158, 131, 0.7); }
-
-.listing:nth-of-type(3) {
-  background-color: rgba(27, 133, 184, 0.7); }
+  margin-right: 20px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  overflow: visible; }
 
 .gearthumbnail {
-  height: 100px; }
+  height: 100px;
+  border: 2px solid #5a5255; }
 
 .usermenu {
   padding-top: 0;
@@ -311,4 +322,5 @@ table {
   display: inline-block;
   width: 40%;
   box-sizing: border-box;
-  overflow: auto; }
+  overflow: auto;
+  border: 2px solid #5a5255; }

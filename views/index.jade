@@ -1,18 +1,17 @@
 extends layout
 
 block content
-  .main
-    if flash
-      include _flash
-    each item in items
-      .listing
-        p
-          h6
-            a(href='/users/#{item.userId}/items/#{item._id}')= item.name
-        p= item.description
-        if item.imageUrl
-          a(href='/users/#{item.userId}/items/#{item._id}')
-            img.gearthumbnail(src='#{item.imageUrl}' alt='broken image')
+  if flash
+    include _flash
+  each item in items
+    .listing
+      p
+        h6
+          a(href='/users/#{item.userId}/items/#{item._id}')= item.name
+      p= item.description
+      if item.imageUrl
+        a(href='/users/#{item.userId}/items/#{item._id}')
+          img.gearthumbnail(src='#{item.imageUrl}' alt='broken image')
 block foot
 block javascript
   script(src='/javascripts/category_dom.js' type='text/javascript')

@@ -6,12 +6,20 @@ input {
   color: $black;
   outline: none;
   font-weight: 300;
-}
-input[type='text'], input[type='url'], input[type='date'], select{
   height: 2em;
 }
+select{
+  height: 2em;
+  margin: 5px;
+  border-radius: 5px;
 
+}
+input[type='text'] {
+  width: 50%;
+}
 textarea {
+  margin: 5px;
+  border-radius: 5px;
   background-color: $white;
   outline: none;
   border: 1px solid $green;
