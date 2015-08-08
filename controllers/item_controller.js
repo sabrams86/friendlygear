@@ -1,5 +1,7 @@
 var db = require('./../models');
 var Validator = require('./../lib/validator');
+var dblib = require('./../lib/db_lib');
+
 
 var index = function(req, res, next) {
   if(req.session.user){

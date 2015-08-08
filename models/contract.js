@@ -4,8 +4,8 @@ var contractSchema = new mongoose.Schema({
   itemId: String,
   sellerId: String,
   buyerId: String,
-  startDate: Date,
-  endDate: Date,
+  startDate: String,
+  endDate: String,
   status: String
 });
 

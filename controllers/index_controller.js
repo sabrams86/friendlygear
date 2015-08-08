@@ -1,12 +1,8 @@
-var db = require('./../models');
+var dblib = require('./../lib/db_lib');
 
 var index = function(req, res, next) {
-  if (req.query.category) {
-    var query = {categories: {$in: [req.query.category]}}
-  } else {
-    var query = {};
-  }
-  db.Items.find(query).then(function (items) {
+  var query = req.query.category ? {categories: {$in: [req.query.category]}} : {};
+  dblib.categoryQuery(query).then(function (items) {
     res.render('index', { items: items, flash: req.flash('flash')});
   });
 }

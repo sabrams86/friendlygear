@@ -1,8 +1,9 @@
 var db = require('./../models');
 var Validator = require('./../lib/validator');
+var dblib = require('./../lib/db_lib');
 
 var index = function (req, res, next) {
-  db.Categories.find({}).then(function (results) {
+  dblib.getCategories().then(function (results) {
     if (req.xhr) {
       res.json(results);
     } else {
@@ -12,17 +13,14 @@ var index = function (req, res, next) {
 }
 
 var create = function (req, res, next) {
-  var validate = new Validator;
-  validate.exists(req.body.name, 'Please enter a category');
-  if(validate._errors.length > 0) {
-    db.Categories.find({}).then(function (results) {
+  dblib.validateCategory(req.body.name).then(function () {
+    dblib.createCategory(req.body.name, req.body.parent).then(function (result) {
+        res.redirect('/categories');
+    })}, function (errors) {
+    dblib.getCategories().then(function (results) {
       res.render('categories/index', {categories: results, errors: validate._errors});
     });
-  } else {
-    db.Categories.create({name: req.body.name, parent: req.body.parent}).then(function (result) {
-        res.redirect('/categories');
-    });
-  }
+  })
 }
 
 module.exports.index = index;
