@@ -4,92 +4,52 @@ var dblib = require('./../lib/db_lib');
 
 
 var index = function(req, res, next) {
-  if(req.session.user){
-    db.Items.find({userId: req.session.user}).then(function (items) {
-      db.Contracts.find({$or: [{sellerId: res.locals.user_id}, {buyerId: res.locals.user_id}]}).then(function (contracts) {
-        itemIds = contracts.map(function (e) {
-          return e.itemId;
-        })
-        db.Items.find({_id: {$in: itemIds}}).then(function (rentalItems) {
-          var sellerContracts = [];
-          var buyerContracts = [];
-          contracts.forEach(function (contract) {
-            if(contract.sellerId === req.session.user) {
-              rentalItems.forEach(function (rentalItem) {
-                if (rentalItem._id.toString() === contract.itemId){
-                  contract.item = rentalItem;
-                }
-              })
-              sellerContracts.push(contract);
-            } else {
-              rentalItems.forEach(function (rentalItem) {
-                if (rentalItem._id.toString() === contract.itemId) {
-                  contract.item = rentalItem;
-                }
-              })
-              buyerContracts.push(contract);
-            }
-          })
-          // console.log(sellerContracts, buyerContracts);
-          res.render('items/index', {items: items,
-            rentalItems: rentalItems,
-            sellerContracts: sellerContracts,
-            buyerContracts: buyerContracts,
-            user: res.locals.user,
-            user_id: req.session.user
-          });
-        })
+  dblib.getItemsByUser(req.session.user).then(function (items) {
+    dblib.getContractsByUser(res.locals.user_id).then(function (contracts) {
+      dblib.getUserContractItems(contracts).then(function (rentalItems) {
+        var userContracts = dblib.sortUserContracts(contracts, rentalItems, req.session.user);
+        res.render('items/index', {items: items,
+          rentalItems: rentalItems,
+          sellerContracts: userContracts[1],
+          buyerContracts: userContracts[0],
+          user: res.locals.user,
+          user_id: req.session.user
+        });
       })
-    });
-  } else {
-    req.flash('flash', 'You must be logged in to see that page');
-    res.redirect('/');
-  }
+    })
+  });
 }
 
 var newpage = function (req, res, next) {
-  if(req.session.user){
-    dblib.getCategories().then(function (categories) {
-      res.render('items/new', {user_id: req.session.user, categories: categories});
-    })
-  } else {
-    req.flash('flash', 'You must be logged in to list gear');
-    res.redirect('/');
-  }
+  dblib.getCategories().then(function (categories) {
+    res.render('items/new', {user_id: req.session.user, categories: categories});
+  })
 }
 
 var show = function (req, res, next) {
-  db.Items.findById(req.params.itemId).then(function (item) {
-    db.Categories.find({_id: {$in: item.categories}}).then(function (categories) {
+  dblib.getItem(req.params.itemId).then(function (item) {
+    dblib.getItemCategories(item).then(function (categories) {
       res.render('items/show', {user: req.session.user, owner: res.locals.user_id, item: item, categories: categories, user_id: req.session.user});
     });
   });
 }
 
 var create = function (req, res, next) {
-  if(req.session.user){
-    dblib.validateItem(req.body.item).then(function () {
-      dblib.createItem(req.body.item, res.locals.user_id).then(function (item) {
-        res.redirect('/users/'+res.locals.user_id+'/items');
-      })}, function () {
+  dblib.validateItem(req.body.item).then(function () {
+    dblib.createItem(req.body.item, res.locals.user_id).then(function (item) {
+      res.redirect('/users/'+res.locals.user_id+'/items');
+    })}, function (errors) {
       dblib.getCategories().then(function (categories) {
-        res.render('items/new', {item: req.body.item, errors: validate._errors, categories: categories});
+        res.render('items/new', {item: req.body.item, errors: errors, categories: categories});
       });
-    })
-  } else {
-    req.flash('flash', 'You must be logged in to list gear');
-    res.redirect('/');
-  }
+  })
 }
 
 var edit = function (req, res, next) {
   dblib.getCategories().then(function (categories) {
-    db.Items.findById(req.params.itemId).then(function (item) {
-      db.Categories.find({_id: {$in: item.categories}}).then(function (userCategories) {
-        var categorylist = '';
-        userCategories.forEach(function (e) {
-          categorylist += (e._id + ',');
-        });
+    dblib.getItem(req.params.itemId).then(function (item) {
+      dblib.getItemCategories(item).then(function (userCategories) {
+        var categorylist = dblib.makeCategoryList(userCategories);
         res.render('items/edit', {item: item, categories: categories, userCategories: userCategories, catlist: categorylist, user_id: req.session.user});
       });
     });
@@ -97,25 +57,20 @@ var edit = function (req, res, next) {
 }
 
 var update = function (req, res, next) {
-  var itemFields = req.body.item;
-  var categories = itemFields.categories.split(',');
+  var categories = req.body.item.categories.split(',');
   categories.pop();
-  db.Items.findByIdAndUpdate(req.params.itemId, {
-    name: itemFields.name,
-    description: itemFields.description,
-    brand: itemFields.brand,
-    datePurchased: itemFields.datePurchased,
-    condition: itemFields.condition,
-    imageUrl: itemFields.imageUrl,
-    categories: categories,
-    }).then(function (item) {
-    res.redirect('/users/'+res.locals.user_id+'/items/'+req.params.itemId);
-  });
+  dblib.validateItem(req.body.item).then(function () {
+    dblib.updateItem(req.params.itemId, req.body.item, categories).then(function (item) {
+      res.redirect('/users/'+res.locals.user_id+'/items/'+req.params.itemId);
+    })
+  }, function (errors) {
+    res.render('items/new', {item: req.body.item, errors: errors, categories: categories});
+  })
 }
 
 var destroy = function (req, res, next) {
-  db.Contracts.remove({itemId: req.params.itemId}).then(function () {
-    db.Items.findByIdAndRemove(req.params.itemId).then(function (result) {
+  dblib.removeContractsByItem(req.params.itemId).then(function () {
+    dblib.removeItem(req.params.itemId).then(function () {
       res.redirect('/users/'+res.locals.user_id+'/items');
     });
   });
