@@ -6,7 +6,7 @@ $(document).ready(function() {
     var deletediv = document.createElement('div');
     deletediv.className = 'delete';
     deletediv.innerHTML = 'x';
-    span.innerHTML = $('#categories option:selected').text();
+    span.innerHTML = $('#categories option:selected').text() + ' ';
     div.appendChild(span);
     div.appendChild(deletediv);
     $('#catrow').append(div);

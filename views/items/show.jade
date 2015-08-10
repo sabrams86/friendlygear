@@ -5,30 +5,28 @@ block content
     h5 Login to Rent this!
   else if user != item.userId
     h4
-      a(href='/users/#{item.userId}/items/#{item._id}/contracts/new') Rent it!
+      a.dark(href='/users/#{item.userId}/items/#{item._id}/contracts/new') Rent it!
   else if user === owner
     h4
-      a(href='/') Pending Rentals
-      a(href='/users/#{item.userId}/items/#{item._id}/edit') Edit
+      a.dark(href='/users/#{item.userId}/items') Pending Rentals
+      |  | 
+      a.dark(href='/users/#{item.userId}/items/#{item._id}/edit') Edit
   else
   h2= item.name
-  img(src='#{item.imageUrl}' alt='broken image')
-  .row 
-    .col2 
-      h6 Description:
-    .col6= item.description
-  .row 
-    .col2
+  img.gearimage(src='#{item.imageUrl}' alt='broken image')
+  .info
+    .row 
+      h6.noTop Description:
+      p= item.description
+    .row 
       h6 Brand:
-    .col6= item.brand
-  .row
-    .col2
+      p= item.brand
+    .row
       h6 Condition:
-    .col6= item.condition
-  .row
-    .col6
+      p= item.condition
+    .row
       h6 Categories:
       ul
         each category in categories
           li= category.name
-  a(href='/users/#{user_id}/items') Back
+    a(href='/users/#{user_id}/items') Back

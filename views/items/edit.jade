@@ -2,7 +2,7 @@ extends ./../layout
 
 block content
   h1 Edit Your Gear
-  a(href='/users/#{user_id}/items') Back
+  a.dark.empty(href='/users/#{user_id}/items') Back
   if errors
     include ./../_error
   form(method='post' action='/users/#{user_id}/items/#{item._id}')
@@ -36,14 +36,16 @@ block content
       select#categories.col6.select2-hidden-accessable(name='item[category_select]')
         each category in categories
           option(value='#{category._id}')= category.name
-      button#addcategory.sml.block(type='button') Add Another Category
+      button#addcategory.sml(type='button') Add Another Category
+      .clear
+      #cats.col2.empty
       each userCategory in userCategories
         div.category_tag
           span= userCategory.name  
           | 
           .delete  x
     .row
-      .col2
+      .col2.empty
       input(type='submit' value='Submit')
 block javascript
   script(src='/javascripts/category_select.js' type='text/javascript')

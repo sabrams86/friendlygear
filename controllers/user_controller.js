@@ -41,8 +41,7 @@ var update = function(req, res, next) {
       })
     })
   }, function(errors) {
-    // res.render('users/edit', {user_id: req.params.userId, user: req.body.user, errors: validate._errors});
-    res.render('users/edit', {user_id: req.params.userId, user: userFields, errors: ['Incorrect Password, Information not saved']});
+    res.render('users/edit', {user_id: req.params.userId, user: req.body.user, errors: errors});
   });
 }
 

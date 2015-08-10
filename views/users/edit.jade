@@ -2,6 +2,8 @@ extends ./../layout
 
 block content
   h1 Edit Your Information
+  form.right(method='post' action='/users/#{user._id}/delete')
+    button.delete(type='submit') Delete Account
   if errors
     include ./../_error
   form(method='post' action='/users/#{user_id}')
@@ -30,7 +32,7 @@ block content
       label.col2(for='password') Password
       input#password.col6(type='password' name='user[password]')
     .row  
+      .col2.empty
+        a.dark(href='/users/#{user._id}/items') Back
       input(type='submit' value='Submit')
-  form(method='post' action='/users/#{user._id}/delete')
-    button.delete(type='submit') Delete Account
-  a(href='/users/#{user._id}/items') Back
+    

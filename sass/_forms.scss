@@ -12,10 +12,9 @@ select{
   height: 2em;
   margin: 5px;
   border-radius: 5px;
-
 }
-input[type='text'] {
-  width: 50%;
+input:not([type='submit']){
+  width: 25%;
 }
 textarea {
   margin: 5px;
@@ -84,7 +83,13 @@ input.sml {
   color: $white;
   background-color: $green;
   display: inline-block;
-  margin: 3px;
-  padding: 2px;
+  margin: 5px;
+  padding: 5px;
   border-radius: 3px;
+}
+.empty {
+  margin: 5px;
+}
+#categories {
+  width: 20%;
 }

@@ -2,7 +2,8 @@ extends ./../layout
 
 block content
   h3 Welcome #{user.name}
-  a(href='/users/#{user_id}/items/new') Add a new item
+  h4
+    a.dark(href='/users/#{user_id}/items/new') Add a new item
   p
   img.avatar(src='#{user.avatarUrl}' alt='profile pic')
   .col8
@@ -24,9 +25,9 @@ block content
               td= sellerContract.startDate
               td= sellerContract.endDate
               td
-                a(href='/users/#{sellerContract.sellerId}/items/#{sellerContract.itemId}/contracts/#{sellerContract._id}') View Rental
+                a.dark(href='/users/#{sellerContract.sellerId}/items/#{sellerContract.itemId}/contracts/#{sellerContract._id}') View Rental
     if buyerContracts.length > 0          
-      h4.noTop Your Pending Rentals
+      h4 Your Pending Rentals
       table.rentals
         thead
           tr
@@ -43,7 +44,7 @@ block content
               td= buyerContract.startDate
               td= buyerContract.endDate
               td
-                a(href='/users/#{buyerContract.sellerId}/items/#{buyerContract.itemId}/contracts/#{buyerContract._id}') View Rental
+                a.dark(href='/users/#{buyerContract.sellerId}/items/#{buyerContract.itemId}/contracts/#{buyerContract._id}') View Rental
   table
   h3 Your Gear
   table
@@ -59,10 +60,11 @@ block content
           td= item.name
           td= item.brand
           td
-            img.gearthumbnail(src='#{item.imageUrl}' alt='broken image')
+            img.gearlistthumbnail(src='#{item.imageUrl}' alt='broken image')
           td
-            a(href='/users/#{item.userId}/items/#{item._id}') Show
-            a(href='/users/#{item.userId}/items/#{item._id}/edit') Edit
+            a.dark(href='/users/#{item.userId}/items/#{item._id}') Show 
+            |  | 
+            a.dark(href='/users/#{item.userId}/items/#{item._id}/edit') Edit
             form(action='/users/#{item.userId}/items/#{item._id}/delete' method='post')
               input(type='submit' value='Delete')
             

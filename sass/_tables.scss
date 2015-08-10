@@ -1,17 +1,21 @@
 table {
+  background-color: $white;
   width: 100%;
   thead {
+    background-color: rgba($red, 0.6);;
     font-weight: 500;
     th {
+      padding: 5px;
       text-align: left;
     }
   }
   tbody{
-    tr:nth-of-type(odd) {
+    tr:nth-of-type(even) {
       background-color: rgba($blue, 0.1);
     }
     td {
       padding: 5px;
+      vertical-align: middle;
     }
   }
 

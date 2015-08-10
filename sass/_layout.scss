@@ -32,7 +32,6 @@ footer {
 main {
   min-height: 600px;
   background-color: rgba($white, 0.7);
-  // background-image: url('/images/nomad.jpeg');
   background-size: cover;
   background-position: bottom;
   height: 100%;
@@ -48,9 +47,6 @@ body {
   height: 100%;
   padding: 1em;
   box-sizing: border-box;
-}
-main > .container {
-  // background: $white;
 }
 .sidemenu {
   padding: 1em;
@@ -94,4 +90,9 @@ main > .container {
 .noTop {
   margin-top: 0;
   padding-top: 0;
+}
+.info {
+  display: inline-block;
+  vertical-align: top;
+  padding: 20px;
 }

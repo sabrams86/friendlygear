@@ -134,6 +134,11 @@ body {
   margin-top: 0;
   padding-top: 0; }
 
+.info {
+  display: inline-block;
+  vertical-align: top;
+  padding: 20px; }
+
 html {
   font-size: 1em; }
 
@@ -191,6 +196,12 @@ a:hover {
 .error {
   color: red; }
 
+.dark {
+  color: #5a5255; }
+
+.bold {
+  font-weight: 700; }
+
 input {
   border: 1px solid #559e83;
   border-radius: 5px;
@@ -206,8 +217,8 @@ select {
   margin: 5px;
   border-radius: 5px; }
 
-input[type='text'] {
-  width: 50%; }
+input:not([type='submit']) {
+  width: 25%; }
 
 textarea {
   margin: 5px;
@@ -275,20 +286,30 @@ input.sml {
   color: #fff;
   background-color: #559e83;
   display: inline-block;
-  margin: 3px;
-  padding: 2px;
+  margin: 5px;
+  padding: 5px;
   border-radius: 3px; }
 
+.empty {
+  margin: 5px; }
+
+#categories {
+  width: 20%; }
+
 table {
+  background-color: #fff;
   width: 100%; }
   table thead {
+    background-color: rgba(174, 90, 65, 0.6);
     font-weight: 500; }
     table thead th {
+      padding: 5px;
       text-align: left; }
-  table tbody tr:nth-of-type(odd) {
+  table tbody tr:nth-of-type(even) {
     background-color: rgba(27, 133, 184, 0.1); }
   table tbody td {
-    padding: 5px; }
+    padding: 5px;
+    vertical-align: middle; }
 
 .rentals {
   width: 100%; }
@@ -296,7 +317,6 @@ table {
 .listing {
   display: inline-block;
   width: 285px;
-  float: left;
   text-align: center;
   background-color: rgba(85, 158, 131, 0.7);
   border-radius: 10px;
@@ -324,3 +344,14 @@ table {
   box-sizing: border-box;
   overflow: auto;
   border: 2px solid #5a5255; }
+
+.gearlistthumbnail {
+  height: 50px;
+  border: 2px solid #5a5255;
+  vertical-align: middle; }
+
+.gearimage {
+  height: 300px;
+  border: 2px solid #5a5255;
+  vertical-align: top;
+  display: inline-block; }
