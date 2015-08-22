@@ -94,6 +94,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-
+if(app.get('env') === 'production') {
+  app.listen(3000);
+}
 
 module.exports = app;
